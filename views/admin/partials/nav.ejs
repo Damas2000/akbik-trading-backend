@@ -27,6 +27,10 @@
         </a>
       <% }); %>
       <div class="w-px h-6 bg-white/20 mx-1"></div>
+      <a href="/admin/change-password" class="flex items-center gap-1 px-3 py-1.5 rounded-lg transition-all duration-200 <%= current === 'password' ? 'bg-white/20 text-white font-semibold shadow-inner' : 'text-slate-300 hover:bg-white/10 hover:text-white' %>">
+        <span class="material-symbols-outlined text-base">lock</span>
+        <span class="hidden xl:inline">Password</span>
+      </a>
       <a href="/admin/logout" class="flex items-center gap-1 px-3 py-1.5 rounded-lg text-red-300 hover:bg-red-500/20 hover:text-red-200 transition-all">
         <span class="material-symbols-outlined text-base">logout</span>
         <span class="hidden xl:inline">Logout</span>

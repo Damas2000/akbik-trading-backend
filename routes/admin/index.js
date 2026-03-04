@@ -9,6 +9,7 @@ const AboutPage = require('../../models/AboutPage');
 const ContactInfo = require('../../models/ContactInfo');
 const ContactMessage = require('../../models/ContactMessage');
 const SiteSettings = require('../../models/SiteSettings');
+const Admin = require('../../models/Admin');
 const Newsletter = require('../../models/Newsletter');
 const PageView = require('../../models/PageView');
 
@@ -415,6 +416,36 @@ router.get('/analytics', async (req, res) => {
   ]);
 
   res.render('admin/analytics/index', { totalViews, viewsByPage, viewsByDay, topReferrers });
+});
+
+// ========== CHANGE PASSWORD ==========
+router.get('/change-password', (req, res) => {
+  res.render('admin/change-password', { error: null, success: null });
+});
+
+router.post('/change-password', async (req, res) => {
+  try {
+    const { current_password, new_password, confirm_password } = req.body;
+    if (new_password !== confirm_password) {
+      return res.render('admin/change-password', { error: 'New passwords do not match.', success: null });
+    }
+    if (new_password.length < 6) {
+      return res.render('admin/change-password', { error: 'Password must be at least 6 characters.', success: null });
+    }
+    const admin = await Admin.findById(req.admin._id || req.admin.id);
+    if (!admin) {
+      return res.render('admin/change-password', { error: 'Admin not found.', success: null });
+    }
+    const isMatch = await admin.comparePassword(current_password);
+    if (!isMatch) {
+      return res.render('admin/change-password', { error: 'Current password is incorrect.', success: null });
+    }
+    admin.password = new_password;
+    await admin.save();
+    res.render('admin/change-password', { error: null, success: 'Password updated successfully!' });
+  } catch (err) {
+    res.render('admin/change-password', { error: 'Something went wrong.', success: null });
+  }
 });
 
 module.exports = router;
