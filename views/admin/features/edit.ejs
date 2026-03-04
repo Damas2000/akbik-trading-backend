@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akbik Admin - Features Section</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <%- include('../partials/nav', { current: 'features' }) %>
+
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Features Section</h1>
+
+    <form method="POST" action="/admin/features" enctype="multipart/form-data" class="bg-white rounded-xl shadow-sm border p-6 space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Title *</label>
+        <input name="title" type="text" required value="<%= section.title || '' %>" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+        <textarea name="description" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg"><%= section.description || '' %></textarea>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Badge Text</label>
+        <input name="badge_text" type="text" value="<%= section.badge_text || '' %>" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Image</label>
+        <% if (section.image_url) { %>
+          <img src="<%= section.image_url %>" class="w-40 h-24 object-cover rounded mb-2" />
+        <% } %>
+        <input name="image" type="file" accept="image/*" class="w-full text-sm" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Feature Cards</label>
+        <div id="cards-container" class="space-y-4">
+          <% if (section.cards && section.cards.length > 0) { %>
+            <% section.cards.forEach(function(card) { %>
+            <div class="border rounded-lg p-4 bg-gray-50 card-row">
+              <div class="grid grid-cols-3 gap-3">
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1">Icon (Material Symbol)</label>
+                  <input name="cards_icon" type="text" value="<%= card.icon %>" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="e.g. verified_user" />
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1">Title</label>
+                  <input name="cards_title" type="text" value="<%= card.title %>" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1">Description</label>
+                  <input name="cards_description" type="text" value="<%= card.description %>" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+                </div>
+              </div>
+              <button type="button" onclick="this.parentElement.remove()" class="text-red-500 text-xs mt-2 hover:text-red-700">Remove Card</button>
+            </div>
+            <% }); %>
+          <% } %>
+        </div>
+        <button type="button" onclick="addCard()" class="mt-2 text-blue-600 text-sm hover:text-blue-700">+ Add Card</button>
+      </div>
+
+      <div class="flex gap-3 pt-4">
+        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-medium">Save</button>
+        <a href="/admin" class="px-6 py-2 rounded-lg border text-gray-600 hover:bg-gray-50">Cancel</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function addCard() {
+      const container = document.getElementById('cards-container');
+      const row = document.createElement('div');
+      row.className = 'border rounded-lg p-4 bg-gray-50 card-row';
+      row.innerHTML = `
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs text-gray-500 mb-1">Icon (Material Symbol)</label>
+            <input name="cards_icon" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="e.g. verified_user" />
+          </div>
+          <div>
+            <label class="block text-xs text-gray-500 mb-1">Title</label>
+            <input name="cards_title" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs text-gray-500 mb-1">Description</label>
+            <input name="cards_description" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+          </div>
+        </div>
+        <button type="button" onclick="this.parentElement.remove()" class="text-red-500 text-xs mt-2 hover:text-red-700">Remove Card</button>
+      `;
+      container.appendChild(row);
+    }
+  </script>
+</body>
+</html>

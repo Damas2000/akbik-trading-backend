@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akbik Admin - Products: <%= category.name %></title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <%- include('../partials/nav', { current: 'categories' }) %>
+
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+      <a href="/admin/categories" class="hover:text-blue-600">Categories</a>
+      <span>/</span>
+      <span class="text-gray-800 font-medium"><%= category.name %></span>
+    </div>
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">Products in "<%= category.name %>"</h1>
+      <a href="/admin/categories/<%= category._id %>/products/new" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm font-medium">+ New Product</a>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm border overflow-hidden">
+      <table class="w-full">
+        <thead class="bg-gray-50 border-b">
+          <tr>
+            <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Image</th>
+            <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Name</th>
+            <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Price</th>
+            <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Order</th>
+            <th class="text-right px-4 py-3 text-sm font-medium text-gray-600">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% products.forEach(function(p) { %>
+          <tr class="border-b hover:bg-gray-50">
+            <td class="px-4 py-3">
+              <% if (p.image_url) { %>
+                <img src="<%= p.image_url %>" class="w-16 h-16 object-cover rounded" />
+              <% } else { %>
+                <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-gray-400 text-xs">No img</div>
+              <% } %>
+            </td>
+            <td class="px-4 py-3 text-sm font-medium text-gray-800"><%= p.name %></td>
+            <td class="px-4 py-3 text-sm text-gray-500">$<%= p.price.toFixed(2) %></td>
+            <td class="px-4 py-3 text-sm text-gray-500"><%= p.sort_order %></td>
+            <td class="px-4 py-3 text-right">
+              <a href="/admin/products/<%= p._id %>/edit" class="text-blue-600 hover:text-blue-700 text-sm mr-3">Edit</a>
+              <form method="POST" action="/admin/products/<%= p._id %>/delete" class="inline" onsubmit="return confirm('Delete this product?')">
+                <button type="submit" class="text-red-600 hover:text-red-700 text-sm">Delete</button>
+              </form>
+            </td>
+          </tr>
+          <% }); %>
+          <% if (products.length === 0) { %>
+          <tr><td colspan="5" class="px-4 py-8 text-center text-gray-400">No products yet</td></tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

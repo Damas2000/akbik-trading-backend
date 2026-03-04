@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akbik Admin - Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <%- include('partials/nav', { current: 'dashboard' }) %>
+
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">Dashboard</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <a href="/admin/hero-slides" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border">
+        <div class="flex items-center gap-4">
+          <span class="material-symbols-outlined text-4xl text-blue-600">slideshow</span>
+          <div>
+            <p class="text-3xl font-bold text-gray-800"><%= slidesCount %></p>
+            <p class="text-gray-500">Hero Slides</p>
+          </div>
+        </div>
+      </a>
+      <a href="/admin/categories" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border">
+        <div class="flex items-center gap-4">
+          <span class="material-symbols-outlined text-4xl text-green-600">category</span>
+          <div>
+            <p class="text-3xl font-bold text-gray-800"><%= categoriesCount %></p>
+            <p class="text-gray-500">Categories</p>
+          </div>
+        </div>
+      </a>
+      <a href="/admin/categories" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border">
+        <div class="flex items-center gap-4">
+          <span class="material-symbols-outlined text-4xl text-purple-600">inventory_2</span>
+          <div>
+            <p class="text-3xl font-bold text-gray-800"><%= productsCount %></p>
+            <p class="text-gray-500">Products</p>
+          </div>
+        </div>
+      </a>
+      <a href="/admin/messages" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border">
+        <div class="flex items-center gap-4">
+          <span class="material-symbols-outlined text-4xl text-red-500">mail</span>
+          <div>
+            <p class="text-3xl font-bold text-gray-800"><%= messagesCount %></p>
+            <p class="text-gray-500">Unread Messages</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+      <a href="/admin/leads" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border">
+        <div class="flex items-center gap-4">
+          <span class="material-symbols-outlined text-4xl text-orange-500">person_search</span>
+          <div>
+            <p class="text-3xl font-bold text-gray-800"><%= newLeadsCount %></p>
+            <p class="text-gray-500">New Leads</p>
+          </div>
+        </div>
+      </a>
+      <a href="/admin/newsletter" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border">
+        <div class="flex items-center gap-4">
+          <span class="material-symbols-outlined text-4xl text-pink-500">newspaper</span>
+          <div>
+            <p class="text-3xl font-bold text-gray-800"><%= subscribersCount %></p>
+            <p class="text-gray-500">Subscribers</p>
+          </div>
+        </div>
+      </a>
+      <a href="/admin/analytics" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border">
+        <div class="flex items-center gap-4">
+          <span class="material-symbols-outlined text-4xl text-cyan-600">analytics</span>
+          <div>
+            <p class="text-3xl font-bold text-gray-800"><%= totalPageViews %></p>
+            <p class="text-gray-500">Page Views</p>
+          </div>
+        </div>
+      </a>
+      <a href="/admin/site-settings" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border">
+        <div class="flex items-center gap-4">
+          <span class="material-symbols-outlined text-4xl text-gray-600">settings</span>
+          <div>
+            <p class="text-lg font-bold text-gray-800">Site Settings</p>
+            <p class="text-gray-500 text-sm">Configure site</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+      <a href="/admin/about" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border flex items-center gap-4">
+        <span class="material-symbols-outlined text-4xl text-indigo-600">info</span>
+        <div>
+          <p class="text-lg font-bold text-gray-800">About Page</p>
+          <p class="text-gray-500 text-sm">Edit About Us content</p>
+        </div>
+      </a>
+      <a href="/admin/contact" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border flex items-center gap-4">
+        <span class="material-symbols-outlined text-4xl text-teal-600">contact_page</span>
+        <div>
+          <p class="text-lg font-bold text-gray-800">Contact Info</p>
+          <p class="text-gray-500 text-sm">Edit contact details & map</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

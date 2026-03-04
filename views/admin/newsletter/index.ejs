@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akbik Admin - Newsletter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <%- include('../partials/nav', { current: 'newsletter' }) %>
+
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-3xl font-bold text-gray-800">Newsletter Subscribers</h1>
+      <a href="/api/newsletter/export" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 flex items-center gap-2">
+        <span class="material-symbols-outlined text-lg">download</span> Export CSV
+      </a>
+    </div>
+
+    <% if (subscribers.length === 0) { %>
+      <div class="bg-white rounded-xl shadow-sm border p-12 text-center">
+        <span class="material-symbols-outlined text-6xl text-gray-300 mb-4">mail</span>
+        <p class="text-gray-500">No subscribers yet</p>
+      </div>
+    <% } else { %>
+      <div class="bg-white rounded-xl shadow-sm border overflow-hidden">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50 border-b">
+            <tr>
+              <th class="text-left px-6 py-3 font-medium text-gray-600">Email</th>
+              <th class="text-left px-6 py-3 font-medium text-gray-600">Subscribed</th>
+              <th class="text-left px-6 py-3 font-medium text-gray-600">Status</th>
+              <th class="text-right px-6 py-3 font-medium text-gray-600">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y">
+            <% subscribers.forEach(sub => { %>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-3 font-medium"><%= sub.email %></td>
+                <td class="px-6 py-3 text-gray-500"><%= new Date(sub.subscribed_at).toLocaleDateString() %></td>
+                <td class="px-6 py-3">
+                  <% if (sub.is_active) { %>
+                    <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-medium">Active</span>
+                  <% } else { %>
+                    <span class="bg-gray-100 text-gray-500 text-xs px-2 py-1 rounded-full font-medium">Unsubscribed</span>
+                  <% } %>
+                </td>
+                <td class="px-6 py-3 text-right">
+                  <% if (sub.is_active) { %>
+                    <form action="/admin/newsletter/<%= sub._id %>/unsubscribe" method="POST" class="inline" onsubmit="return confirm('Unsubscribe this email?')">
+                      <button class="text-red-500 hover:text-red-700 text-xs font-medium">Unsubscribe</button>
+                    </form>
+                  <% } %>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-sm text-gray-500 mt-4"><%= subscribers.filter(s => s.is_active).length %> active / <%= subscribers.length %> total subscribers</p>
+    <% } %>
+  </div>
+</body>
+</html>

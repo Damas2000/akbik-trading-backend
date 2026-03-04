@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akbik Admin - Analytics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <%- include('../partials/nav', { current: 'analytics' }) %>
+
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">Analytics</h1>
+
+    <!-- Stat Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white rounded-xl shadow-sm border p-6">
+        <div class="flex items-center gap-4">
+          <span class="material-symbols-outlined text-4xl text-blue-600">visibility</span>
+          <div>
+            <p class="text-3xl font-bold text-gray-800"><%= totalViews %></p>
+            <p class="text-gray-500">Total Page Views</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl shadow-sm border p-6">
+        <div class="flex items-center gap-4">
+          <span class="material-symbols-outlined text-4xl text-green-600">pages</span>
+          <div>
+            <p class="text-3xl font-bold text-gray-800"><%= viewsByPage.length %></p>
+            <p class="text-gray-500">Unique Pages Visited</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl shadow-sm border p-6">
+        <div class="flex items-center gap-4">
+          <span class="material-symbols-outlined text-4xl text-purple-600">link</span>
+          <div>
+            <p class="text-3xl font-bold text-gray-800"><%= topReferrers.length %></p>
+            <p class="text-gray-500">Referral Sources</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Views Chart -->
+    <div class="bg-white rounded-xl shadow-sm border p-6 mb-8">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Daily Views (Last 30 Days)</h2>
+      <canvas id="dailyChart" height="100"></canvas>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Pages Table -->
+      <div class="bg-white rounded-xl shadow-sm border p-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Top Pages</h2>
+        <% if (viewsByPage.length === 0) { %>
+          <p class="text-gray-500 text-sm">No data yet</p>
+        <% } else { %>
+          <table class="w-full text-sm">
+            <thead class="border-b">
+              <tr>
+                <th class="text-left py-2 font-medium text-gray-600">Page</th>
+                <th class="text-right py-2 font-medium text-gray-600">Views</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y">
+              <% viewsByPage.forEach(p => { %>
+                <tr class="hover:bg-gray-50">
+                  <td class="py-2 text-gray-800"><%= p._id %></td>
+                  <td class="py-2 text-right font-medium"><%= p.count %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } %>
+      </div>
+
+      <!-- Referrers Table -->
+      <div class="bg-white rounded-xl shadow-sm border p-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Top Referrers</h2>
+        <% if (topReferrers.length === 0) { %>
+          <p class="text-gray-500 text-sm">No referrer data yet</p>
+        <% } else { %>
+          <table class="w-full text-sm">
+            <thead class="border-b">
+              <tr>
+                <th class="text-left py-2 font-medium text-gray-600">Referrer</th>
+                <th class="text-right py-2 font-medium text-gray-600">Views</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y">
+              <% topReferrers.forEach(r => { %>
+                <tr class="hover:bg-gray-50">
+                  <td class="py-2 text-gray-800 truncate max-w-xs"><%= r._id %></td>
+                  <td class="py-2 text-right font-medium"><%= r.count %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('dailyChart').getContext('2d');
+    const chartData = <%- JSON.stringify(viewsByDay) %>;
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: chartData.map(d => d._id),
+        datasets: [{
+          label: 'Page Views',
+          data: chartData.map(d => d.count),
+          backgroundColor: 'rgba(59, 130, 246, 0.5)',
+          borderColor: 'rgba(59, 130, 246, 1)',
+          borderWidth: 1,
+          borderRadius: 4,
+        }],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true, ticks: { stepSize: 1 } },
+          x: { ticks: { maxRotation: 45 } },
+        },
+        plugins: { legend: { display: false } },
+      },
+    });
+  </script>
+</body>
+</html>

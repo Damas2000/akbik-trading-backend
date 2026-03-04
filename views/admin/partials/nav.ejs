@@ -1,0 +1,19 @@
+<nav class="bg-white shadow-sm border-b">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+    <span class="text-xl font-bold text-gray-800">Akbik Admin</span>
+    <div class="flex items-center gap-4 text-sm flex-wrap">
+      <a href="/admin" class="<%= current === 'dashboard' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Dashboard</a>
+      <a href="/admin/hero-slides" class="<%= current === 'hero-slides' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Hero Slides</a>
+      <a href="/admin/categories" class="<%= current === 'categories' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Categories</a>
+      <a href="/admin/features" class="<%= current === 'features' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Features</a>
+      <a href="/admin/about" class="<%= current === 'about' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">About</a>
+      <a href="/admin/contact" class="<%= current === 'contact' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Contact</a>
+      <a href="/admin/messages" class="<%= current === 'messages' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Messages</a>
+      <a href="/admin/leads" class="<%= current === 'leads' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Leads</a>
+      <a href="/admin/newsletter" class="<%= current === 'newsletter' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Newsletter</a>
+      <a href="/admin/analytics" class="<%= current === 'analytics' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Analytics</a>
+      <a href="/admin/site-settings" class="<%= current === 'settings' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Settings</a>
+      <a href="/admin/logout" class="text-red-600 hover:text-red-700">Logout</a>
+    </div>
+  </div>
+</nav>

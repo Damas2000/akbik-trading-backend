@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akbik Admin - <%= slide ? 'Edit' : 'New' %> Hero Slide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <%- include('../partials/nav', { current: 'hero-slides' }) %>
+
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6"><%= slide ? 'Edit' : 'New' %> Hero Slide</h1>
+
+    <form method="POST" action="<%= slide ? '/admin/hero-slides/' + slide._id : '/admin/hero-slides' %>" enctype="multipart/form-data" class="bg-white rounded-xl shadow-sm border p-6 space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Headline *</label>
+        <input name="headline" type="text" required value="<%= slide ? slide.headline : '' %>" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Subheading</label>
+        <textarea name="subheading" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg"><%= slide ? slide.subheading : '' %></textarea>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Badge Text</label>
+        <input name="badge_text" type="text" value="<%= slide ? slide.badge_text : '' %>" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Image</label>
+        <% if (slide && slide.image_url) { %>
+          <img src="<%= slide.image_url %>" class="w-40 h-24 object-cover rounded mb-2" />
+        <% } %>
+        <input name="image" type="file" accept="image/*" class="w-full text-sm" />
+        <% if (!slide) { %>
+          <p class="text-xs text-gray-400 mt-1">Or provide URL below</p>
+          <input name="image_url" type="text" placeholder="https://..." class="w-full px-3 py-2 border border-gray-300 rounded-lg mt-1" />
+        <% } %>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Sort Order</label>
+        <input name="sort_order" type="number" value="<%= slide ? slide.sort_order : 0 %>" class="w-32 px-3 py-2 border border-gray-300 rounded-lg" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Buttons</label>
+        <div id="buttons-container" class="space-y-3">
+          <% if (slide && slide.buttons && slide.buttons.length > 0) { %>
+            <% slide.buttons.forEach(function(btn) { %>
+            <div class="flex gap-2 items-center button-row">
+              <input name="buttons_label" type="text" placeholder="Label" value="<%= btn.label %>" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+              <input name="buttons_url" type="text" placeholder="URL" value="<%= btn.url %>" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+              <select name="buttons_style" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                <option value="primary" <%= btn.style === 'primary' ? 'selected' : '' %>>Primary</option>
+                <option value="secondary" <%= btn.style === 'secondary' ? 'selected' : '' %>>Secondary</option>
+              </select>
+              <button type="button" onclick="this.parentElement.remove()" class="text-red-500 text-sm">Remove</button>
+            </div>
+            <% }); %>
+          <% } %>
+        </div>
+        <button type="button" onclick="addButton()" class="mt-2 text-blue-600 text-sm hover:text-blue-700">+ Add Button</button>
+      </div>
+
+      <div class="flex gap-3 pt-4">
+        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-medium">Save</button>
+        <a href="/admin/hero-slides" class="px-6 py-2 rounded-lg border text-gray-600 hover:bg-gray-50">Cancel</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function addButton() {
+      const container = document.getElementById('buttons-container');
+      const row = document.createElement('div');
+      row.className = 'flex gap-2 items-center button-row';
+      row.innerHTML = `
+        <input name="buttons_label" type="text" placeholder="Label" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+        <input name="buttons_url" type="text" placeholder="URL" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+        <select name="buttons_style" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+          <option value="primary">Primary</option>
+          <option value="secondary">Secondary</option>
+        </select>
+        <button type="button" onclick="this.parentElement.remove()" class="text-red-500 text-sm">Remove</button>
+      `;
+      container.appendChild(row);
+    }
+  </script>
+</body>
+</html>
