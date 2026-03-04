@@ -3,109 +3,167 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Akbik Admin - Dashboard</title>
+  <title>Admin - Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <style>body{font-family:'Inter',sans-serif}</style>
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-slate-100 min-h-screen">
   <%- include('partials/nav', { current: 'dashboard' }) %>
 
   <div class="max-w-7xl mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold text-gray-800 mb-8">Dashboard</h1>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <a href="/admin/hero-slides" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border">
-        <div class="flex items-center gap-4">
-          <span class="material-symbols-outlined text-4xl text-blue-600">slideshow</span>
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-3xl font-extrabold text-slate-800">Dashboard</h1>
+        <p class="text-slate-500 mt-1">Welcome back! Here's an overview of your site.</p>
+      </div>
+      <form id="reset-btn" action="/admin/reset-all" method="POST" onsubmit="return confirm('WARNING: This will delete ALL content data (slides, categories, products, features, about, contact, site settings). Admin account and messages will be kept.\n\nThis action cannot be undone. Continue?')">
+        <button type="submit" class="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-semibold shadow-lg shadow-red-500/20 transition-all">
+          <span class="material-symbols-outlined text-lg">restart_alt</span>
+          Reset All Data
+        </button>
+      </form>
+    </div>
+
+    <!-- Stats Grid -->
+    <div id="stats-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
+      <a href="/admin/hero-slides" class="group relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-500/10 to-transparent rounded-bl-[4rem]"></div>
+        <div class="relative flex items-center gap-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-white text-2xl">slideshow</span>
+          </div>
           <div>
-            <p class="text-3xl font-bold text-gray-800"><%= slidesCount %></p>
-            <p class="text-gray-500">Hero Slides</p>
+            <p class="text-3xl font-extrabold text-slate-800"><%= slidesCount %></p>
+            <p class="text-slate-500 text-sm font-medium">Hero Slides</p>
           </div>
         </div>
       </a>
-      <a href="/admin/categories" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border">
-        <div class="flex items-center gap-4">
-          <span class="material-symbols-outlined text-4xl text-green-600">category</span>
+      <a href="/admin/categories" class="group relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-emerald-500/10 to-transparent rounded-bl-[4rem]"></div>
+        <div class="relative flex items-center gap-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/25 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-white text-2xl">category</span>
+          </div>
           <div>
-            <p class="text-3xl font-bold text-gray-800"><%= categoriesCount %></p>
-            <p class="text-gray-500">Categories</p>
+            <p class="text-3xl font-extrabold text-slate-800"><%= categoriesCount %></p>
+            <p class="text-slate-500 text-sm font-medium">Categories</p>
           </div>
         </div>
       </a>
-      <a href="/admin/categories" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border">
-        <div class="flex items-center gap-4">
-          <span class="material-symbols-outlined text-4xl text-purple-600">inventory_2</span>
+      <a href="/admin/categories" class="group relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-violet-500/10 to-transparent rounded-bl-[4rem]"></div>
+        <div class="relative flex items-center gap-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-violet-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg shadow-violet-500/25 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-white text-2xl">inventory_2</span>
+          </div>
           <div>
-            <p class="text-3xl font-bold text-gray-800"><%= productsCount %></p>
-            <p class="text-gray-500">Products</p>
+            <p class="text-3xl font-extrabold text-slate-800"><%= productsCount %></p>
+            <p class="text-slate-500 text-sm font-medium">Products</p>
           </div>
         </div>
       </a>
-      <a href="/admin/messages" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border">
-        <div class="flex items-center gap-4">
-          <span class="material-symbols-outlined text-4xl text-red-500">mail</span>
+      <a href="/admin/messages" class="group relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-rose-500/10 to-transparent rounded-bl-[4rem]"></div>
+        <div class="relative flex items-center gap-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-rose-500 to-rose-600 rounded-xl flex items-center justify-center shadow-lg shadow-rose-500/25 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-white text-2xl">mail</span>
+          </div>
           <div>
-            <p class="text-3xl font-bold text-gray-800"><%= messagesCount %></p>
-            <p class="text-gray-500">Unread Messages</p>
+            <p class="text-3xl font-extrabold text-slate-800"><%= messagesCount %></p>
+            <p class="text-slate-500 text-sm font-medium">Unread Messages</p>
           </div>
         </div>
       </a>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
-      <a href="/admin/leads" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border">
-        <div class="flex items-center gap-4">
-          <span class="material-symbols-outlined text-4xl text-orange-500">person_search</span>
+    <div id="extra-stats" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
+      <a href="/admin/leads" class="group relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-500/10 to-transparent rounded-bl-[4rem]"></div>
+        <div class="relative flex items-center gap-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-500 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/25 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-white text-2xl">people</span>
+          </div>
           <div>
-            <p class="text-3xl font-bold text-gray-800"><%= newLeadsCount %></p>
-            <p class="text-gray-500">New Leads</p>
+            <p class="text-3xl font-extrabold text-slate-800"><%= newLeadsCount %></p>
+            <p class="text-slate-500 text-sm font-medium">New Leads</p>
           </div>
         </div>
       </a>
-      <a href="/admin/newsletter" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border">
-        <div class="flex items-center gap-4">
-          <span class="material-symbols-outlined text-4xl text-pink-500">newspaper</span>
+      <a href="/admin/newsletter" class="group relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-pink-500/10 to-transparent rounded-bl-[4rem]"></div>
+        <div class="relative flex items-center gap-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-pink-500/25 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-white text-2xl">newspaper</span>
+          </div>
           <div>
-            <p class="text-3xl font-bold text-gray-800"><%= subscribersCount %></p>
-            <p class="text-gray-500">Subscribers</p>
+            <p class="text-3xl font-extrabold text-slate-800"><%= subscribersCount %></p>
+            <p class="text-slate-500 text-sm font-medium">Subscribers</p>
           </div>
         </div>
       </a>
-      <a href="/admin/analytics" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border">
-        <div class="flex items-center gap-4">
-          <span class="material-symbols-outlined text-4xl text-cyan-600">analytics</span>
+      <a href="/admin/analytics" class="group relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-cyan-500/10 to-transparent rounded-bl-[4rem]"></div>
+        <div class="relative flex items-center gap-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/25 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-white text-2xl">analytics</span>
+          </div>
           <div>
-            <p class="text-3xl font-bold text-gray-800"><%= totalPageViews %></p>
-            <p class="text-gray-500">Page Views</p>
+            <p class="text-3xl font-extrabold text-slate-800"><%= totalPageViews %></p>
+            <p class="text-slate-500 text-sm font-medium">Page Views</p>
           </div>
         </div>
       </a>
-      <a href="/admin/site-settings" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border">
-        <div class="flex items-center gap-4">
-          <span class="material-symbols-outlined text-4xl text-gray-600">settings</span>
+      <a href="/admin/site-settings" class="group relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-slate-500/10 to-transparent rounded-bl-[4rem]"></div>
+        <div class="relative flex items-center gap-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-slate-600 to-slate-700 rounded-xl flex items-center justify-center shadow-lg shadow-slate-500/25 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-white text-2xl">settings</span>
+          </div>
           <div>
-            <p class="text-lg font-bold text-gray-800">Site Settings</p>
-            <p class="text-gray-500 text-sm">Configure site</p>
+            <p class="text-lg font-extrabold text-slate-800">Site Settings</p>
+            <p class="text-slate-500 text-sm font-medium">Configure site</p>
           </div>
         </div>
       </a>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-      <a href="/admin/about" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border flex items-center gap-4">
-        <span class="material-symbols-outlined text-4xl text-indigo-600">info</span>
-        <div>
-          <p class="text-lg font-bold text-gray-800">About Page</p>
-          <p class="text-gray-500 text-sm">Edit About Us content</p>
+    <!-- Quick Links -->
+    <div id="quick-links" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <a href="/admin/about" class="group bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-4">
+        <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-white text-2xl">info</span>
         </div>
+        <div>
+          <p class="text-lg font-bold text-white">About Page</p>
+          <p class="text-indigo-100 text-sm">Edit About Us content</p>
+        </div>
+        <span class="material-symbols-outlined text-white/50 ml-auto text-2xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
       </a>
-      <a href="/admin/contact" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow border flex items-center gap-4">
-        <span class="material-symbols-outlined text-4xl text-teal-600">contact_page</span>
-        <div>
-          <p class="text-lg font-bold text-gray-800">Contact Info</p>
-          <p class="text-gray-500 text-sm">Edit contact details & map</p>
+      <a href="/admin/contact" class="group bg-gradient-to-r from-teal-500 to-emerald-600 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-4">
+        <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-white text-2xl">contact_page</span>
         </div>
+        <div>
+          <p class="text-lg font-bold text-white">Contact Info</p>
+          <p class="text-teal-100 text-sm">Edit contact details & map</p>
+        </div>
+        <span class="material-symbols-outlined text-white/50 ml-auto text-2xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
       </a>
     </div>
   </div>
+  <%
+    var tourSteps = [
+      { element: 'nav', popover: { title: 'Navigation Bar', description: 'Use the top navigation to switch between all admin sections. Each icon represents a different management area.' } },
+      { element: '#stats-grid', popover: { title: 'Site Statistics', description: 'Quick overview of your site content: hero slides, categories, products, and unread messages. Click any card to manage that section.' } },
+      { element: '#extra-stats', popover: { title: 'Advanced Stats', description: 'Track leads, newsletter subscribers, page views, and access site settings from here.' } },
+      { element: '#quick-links', popover: { title: 'Quick Actions', description: 'Fast access to edit your About Us page content and Contact information.' } },
+      { element: '#reset-btn', popover: { title: 'Reset All Data', description: 'Danger zone! This deletes ALL content data (slides, categories, products, etc). Admin account and messages are kept. Use with caution.' } },
+      { popover: { title: 'You are all set!', description: 'You can click the purple ? button at the bottom-right corner anytime to replay this guide on any page.' } }
+    ];
+    var tourKey = 'dashboard';
+  %>
+  <%- include('partials/tour', { tourSteps: tourSteps, tourKey: tourKey }) %>
 </body>
 </html>

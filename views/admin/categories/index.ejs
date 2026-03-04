@@ -3,56 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Akbik Admin - Categories</title>
+  <title>Admin - Categories</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <style>body{font-family:'Inter',sans-serif}</style>
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-slate-100 min-h-screen">
   <%- include('../partials/nav', { current: 'categories' }) %>
 
   <div class="max-w-7xl mx-auto px-4 py-8">
-    <div class="flex items-center justify-between mb-6">
-      <h1 class="text-2xl font-bold text-gray-800">Categories</h1>
-      <a href="/admin/categories/new" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm font-medium">+ New Category</a>
+    <div id="page-header" class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-2xl font-extrabold text-slate-800">Categories</h1>
+        <p class="text-slate-500 text-sm mt-1">Manage product categories</p>
+      </div>
+      <a id="add-btn" href="/admin/categories/new" class="flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-5 py-2.5 rounded-xl hover:from-emerald-600 hover:to-emerald-700 text-sm font-semibold shadow-lg shadow-emerald-500/25 transition-all">
+        <span class="material-symbols-outlined text-lg">add</span> New Category
+      </a>
     </div>
 
-    <div class="bg-white rounded-xl shadow-sm border overflow-hidden">
+    <div id="categories-table" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
       <table class="w-full">
-        <thead class="bg-gray-50 border-b">
+        <thead class="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
           <tr>
-            <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Image</th>
-            <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Name</th>
-            <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Order</th>
-            <th class="text-right px-4 py-3 text-sm font-medium text-gray-600">Actions</th>
+            <th class="text-left px-5 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Image</th>
+            <th class="text-left px-5 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Name</th>
+            <th class="text-left px-5 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Order</th>
+            <th class="text-right px-5 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Actions</th>
           </tr>
         </thead>
         <tbody>
           <% categories.forEach(function(cat) { %>
-          <tr class="border-b hover:bg-gray-50">
-            <td class="px-4 py-3">
+          <tr class="border-b border-slate-100 hover:bg-emerald-50/50 transition-colors">
+            <td class="px-5 py-4">
               <% if (cat.image_url) { %>
-                <img src="<%= cat.image_url %>" class="w-16 h-16 object-cover rounded" />
+                <img src="<%= cat.image_url %>" class="w-16 h-16 object-cover rounded-xl shadow-sm" />
               <% } else { %>
-                <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-gray-400 text-xs">No img</div>
+                <div class="w-16 h-16 bg-slate-200 rounded-xl flex items-center justify-center text-slate-400 text-xs">No img</div>
               <% } %>
             </td>
-            <td class="px-4 py-3 text-sm font-medium text-gray-800"><%= cat.name %></td>
-            <td class="px-4 py-3 text-sm text-gray-500"><%= cat.sort_order %></td>
-            <td class="px-4 py-3 text-right">
-              <a href="/admin/categories/<%= cat._id %>/products" class="text-green-600 hover:text-green-700 text-sm mr-3">Products</a>
-              <a href="/admin/categories/<%= cat._id %>/edit" class="text-blue-600 hover:text-blue-700 text-sm mr-3">Edit</a>
+            <td class="px-5 py-4 text-sm font-bold text-slate-800"><%= cat.name %></td>
+            <td class="px-5 py-4"><span class="text-sm text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg font-mono"><%= cat.sort_order %></span></td>
+            <td class="px-5 py-4 text-right">
+              <a href="/admin/categories/<%= cat._id %>/products" class="inline-flex items-center gap-1 text-emerald-600 hover:text-emerald-700 text-sm font-medium mr-3">
+                <span class="material-symbols-outlined text-base">inventory_2</span> Products
+              </a>
+              <a href="/admin/categories/<%= cat._id %>/edit" class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 text-sm font-medium mr-3">
+                <span class="material-symbols-outlined text-base">edit</span> Edit
+              </a>
               <form method="POST" action="/admin/categories/<%= cat._id %>/delete" class="inline" onsubmit="return confirm('Delete this category and all its products?')">
-                <button type="submit" class="text-red-600 hover:text-red-700 text-sm">Delete</button>
+                <button type="submit" class="inline-flex items-center gap-1 text-red-500 hover:text-red-700 text-sm font-medium">
+                  <span class="material-symbols-outlined text-base">delete</span> Delete
+                </button>
               </form>
             </td>
           </tr>
           <% }); %>
           <% if (categories.length === 0) { %>
-          <tr><td colspan="4" class="px-4 py-8 text-center text-gray-400">No categories yet</td></tr>
+          <tr><td colspan="4" class="px-5 py-12 text-center text-slate-400">
+            <span class="material-symbols-outlined text-5xl mb-2 text-slate-300">category</span>
+            <p class="font-medium">No categories yet</p>
+          </td></tr>
           <% } %>
         </tbody>
       </table>
     </div>
   </div>
+  <%
+    var tourSteps = [
+      { element: '#page-header', popover: { title: 'Categories', description: 'Categories organize your products into groups. They appear as a slider on the homepage.' } },
+      { element: '#add-btn', popover: { title: 'Add Category', description: 'Create a new product category with a name and image.' } },
+      { element: '#categories-table', popover: { title: 'Category List', description: 'View all categories here. Click "Products" to manage items in that category. Deleting a category also removes all its products.' } },
+      { popover: { title: 'Tips', description: 'Use square images (500x500) for best results. Keep category names short (1-3 words). The order number controls display position.' } }
+    ];
+    var tourKey = 'categories';
+  %>
+  <%- include('../partials/tour', { tourSteps: tourSteps, tourKey: tourKey }) %>
 </body>
 </html>

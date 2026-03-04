@@ -3,67 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Akbik Admin - <%= slide ? 'Edit' : 'New' %> Hero Slide</title>
+  <title>Admin - <%= slide ? 'Edit' : 'New' %> Hero Slide</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <style>body{font-family:'Inter',sans-serif}</style>
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-slate-100 min-h-screen">
   <%- include('../partials/nav', { current: 'hero-slides' }) %>
 
   <div class="max-w-3xl mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6"><%= slide ? 'Edit' : 'New' %> Hero Slide</h1>
+    <div class="mb-6">
+      <a href="/admin/hero-slides" class="text-sm text-slate-500 hover:text-blue-600 flex items-center gap-1 mb-2">
+        <span class="material-symbols-outlined text-base">arrow_back</span> Back to Slides
+      </a>
+      <h1 class="text-2xl font-extrabold text-slate-800"><%= slide ? 'Edit' : 'New' %> Hero Slide</h1>
+    </div>
 
-    <form method="POST" action="<%= slide ? '/admin/hero-slides/' + slide._id : '/admin/hero-slides' %>" enctype="multipart/form-data" class="bg-white rounded-xl shadow-sm border p-6 space-y-4">
+    <form method="POST" action="<%= slide ? '/admin/hero-slides/' + slide._id : '/admin/hero-slides' %>" enctype="multipart/form-data" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 space-y-5">
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Headline *</label>
-        <input name="headline" type="text" required value="<%= slide ? slide.headline : '' %>" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+        <label class="block text-sm font-bold text-slate-700 mb-2">Headline *</label>
+        <input name="headline" type="text" required value="<%= slide ? slide.headline : '' %>" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Subheading</label>
-        <textarea name="subheading" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg"><%= slide ? slide.subheading : '' %></textarea>
+        <label class="block text-sm font-bold text-slate-700 mb-2">Subheading</label>
+        <textarea name="subheading" rows="2" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"><%= slide ? slide.subheading : '' %></textarea>
       </div>
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Badge Text</label>
-        <input name="badge_text" type="text" value="<%= slide ? slide.badge_text : '' %>" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+        <label class="block text-sm font-bold text-slate-700 mb-2">Badge Text</label>
+        <input name="badge_text" type="text" value="<%= slide ? slide.badge_text : '' %>" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Image</label>
+        <label class="block text-sm font-bold text-slate-700 mb-2">Image</label>
         <% if (slide && slide.image_url) { %>
-          <img src="<%= slide.image_url %>" class="w-40 h-24 object-cover rounded mb-2" />
+          <img src="<%= slide.image_url %>" class="w-40 h-24 object-cover rounded-xl mb-3 shadow-sm" />
         <% } %>
-        <input name="image" type="file" accept="image/*" class="w-full text-sm" />
+        <input name="image" type="file" accept="image/*" class="w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
         <% if (!slide) { %>
-          <p class="text-xs text-gray-400 mt-1">Or provide URL below</p>
-          <input name="image_url" type="text" placeholder="https://..." class="w-full px-3 py-2 border border-gray-300 rounded-lg mt-1" />
+          <p class="text-xs text-slate-400 mt-2">Or provide URL below</p>
+          <input name="image_url" type="text" placeholder="https://..." class="w-full px-4 py-3 border border-slate-200 rounded-xl mt-2 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" />
         <% } %>
       </div>
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Sort Order</label>
-        <input name="sort_order" type="number" value="<%= slide ? slide.sort_order : 0 %>" class="w-32 px-3 py-2 border border-gray-300 rounded-lg" />
+        <label class="block text-sm font-bold text-slate-700 mb-2">Sort Order</label>
+        <input name="sort_order" type="number" value="<%= slide ? slide.sort_order : 0 %>" class="w-32 px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" />
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Buttons</label>
+        <label class="block text-sm font-bold text-slate-700 mb-3">Buttons</label>
         <div id="buttons-container" class="space-y-3">
           <% if (slide && slide.buttons && slide.buttons.length > 0) { %>
             <% slide.buttons.forEach(function(btn) { %>
-            <div class="flex gap-2 items-center button-row">
-              <input name="buttons_label" type="text" placeholder="Label" value="<%= btn.label %>" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm" />
-              <input name="buttons_url" type="text" placeholder="URL" value="<%= btn.url %>" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm" />
-              <select name="buttons_style" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+            <div class="flex gap-2 items-center button-row bg-slate-50 p-3 rounded-xl border border-slate-200">
+              <input name="buttons_label" type="text" placeholder="Label" value="<%= btn.label %>" class="flex-1 px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" />
+              <input name="buttons_url" type="text" placeholder="URL" value="<%= btn.url %>" class="flex-1 px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" />
+              <select name="buttons_style" class="px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
                 <option value="primary" <%= btn.style === 'primary' ? 'selected' : '' %>>Primary</option>
                 <option value="secondary" <%= btn.style === 'secondary' ? 'selected' : '' %>>Secondary</option>
               </select>
-              <button type="button" onclick="this.parentElement.remove()" class="text-red-500 text-sm">Remove</button>
+              <button type="button" onclick="this.parentElement.remove()" class="text-red-500 hover:text-red-700 p-1">
+                <span class="material-symbols-outlined text-lg">close</span>
+              </button>
             </div>
             <% }); %>
           <% } %>
         </div>
-        <button type="button" onclick="addButton()" class="mt-2 text-blue-600 text-sm hover:text-blue-700">+ Add Button</button>
+        <button type="button" onclick="addButton()" class="mt-3 flex items-center gap-1 text-blue-600 text-sm font-semibold hover:text-blue-700">
+          <span class="material-symbols-outlined text-lg">add_circle</span> Add Button
+        </button>
       </div>
 
-      <div class="flex gap-3 pt-4">
-        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-medium">Save</button>
-        <a href="/admin/hero-slides" class="px-6 py-2 rounded-lg border text-gray-600 hover:bg-gray-50">Cancel</a>
+      <div class="flex gap-3 pt-4 border-t border-slate-100">
+        <button type="submit" class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-3 rounded-xl hover:from-blue-600 hover:to-blue-700 font-semibold shadow-lg shadow-blue-500/25 transition-all flex items-center gap-2">
+          <span class="material-symbols-outlined text-lg">save</span> Save
+        </button>
+        <a href="/admin/hero-slides" class="px-8 py-3 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-medium transition-all">Cancel</a>
       </div>
     </form>
   </div>
@@ -72,18 +86,31 @@
     function addButton() {
       const container = document.getElementById('buttons-container');
       const row = document.createElement('div');
-      row.className = 'flex gap-2 items-center button-row';
+      row.className = 'flex gap-2 items-center button-row bg-slate-50 p-3 rounded-xl border border-slate-200';
       row.innerHTML = `
-        <input name="buttons_label" type="text" placeholder="Label" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm" />
-        <input name="buttons_url" type="text" placeholder="URL" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm" />
-        <select name="buttons_style" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+        <input name="buttons_label" type="text" placeholder="Label" class="flex-1 px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" />
+        <input name="buttons_url" type="text" placeholder="URL" class="flex-1 px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" />
+        <select name="buttons_style" class="px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
           <option value="primary">Primary</option>
           <option value="secondary">Secondary</option>
         </select>
-        <button type="button" onclick="this.parentElement.remove()" class="text-red-500 text-sm">Remove</button>
+        <button type="button" onclick="this.parentElement.remove()" class="text-red-500 hover:text-red-700 p-1">
+          <span class="material-symbols-outlined text-lg">close</span>
+        </button>
       `;
       container.appendChild(row);
     }
   </script>
+  <%
+    var tourSteps = [
+      { popover: { title: slide ? 'Edit Hero Slide' : 'New Hero Slide', description: 'Fill in the form to ' + (slide ? 'update this' : 'create a new') + ' hero slide. Required fields are marked with *.' } },
+      { element: 'form > div:nth-child(1)', popover: { title: 'Headline', description: 'The main large text that visitors see. Keep it impactful and under 10 words.' } },
+      { element: 'form > div:nth-child(4)', popover: { title: 'Slide Image', description: 'Upload a high-quality wide image (1920x800 recommended). You can also paste an image URL instead.' } },
+      { element: '#buttons-container', popover: { title: 'Action Buttons', description: 'Add call-to-action buttons. "Primary" is bold/filled, "Secondary" is outlined. Add up to 2 buttons per slide.' } },
+      { element: 'form > div:nth-child(5)', popover: { title: 'Sort Order', description: 'Controls the slide position. Lower numbers appear first. Use 0, 1, 2, etc.' } }
+    ];
+    var tourKey = 'hero-slide-form';
+  %>
+  <%- include('../partials/tour', { tourSteps: tourSteps, tourKey: tourKey }) %>
 </body>
 </html>

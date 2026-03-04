@@ -1,19 +1,36 @@
-<nav class="bg-white shadow-sm border-b">
+<nav class="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-900 shadow-xl">
   <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-    <span class="text-xl font-bold text-gray-800">Akbik Admin</span>
-    <div class="flex items-center gap-4 text-sm flex-wrap">
-      <a href="/admin" class="<%= current === 'dashboard' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Dashboard</a>
-      <a href="/admin/hero-slides" class="<%= current === 'hero-slides' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Hero Slides</a>
-      <a href="/admin/categories" class="<%= current === 'categories' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Categories</a>
-      <a href="/admin/features" class="<%= current === 'features' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Features</a>
-      <a href="/admin/about" class="<%= current === 'about' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">About</a>
-      <a href="/admin/contact" class="<%= current === 'contact' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Contact</a>
-      <a href="/admin/messages" class="<%= current === 'messages' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Messages</a>
-      <a href="/admin/leads" class="<%= current === 'leads' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Leads</a>
-      <a href="/admin/newsletter" class="<%= current === 'newsletter' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Newsletter</a>
-      <a href="/admin/analytics" class="<%= current === 'analytics' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Analytics</a>
-      <a href="/admin/site-settings" class="<%= current === 'settings' ? 'font-medium text-blue-600' : 'text-gray-600 hover:text-blue-600' %>">Settings</a>
-      <a href="/admin/logout" class="text-red-600 hover:text-red-700">Logout</a>
+    <a href="/admin" class="flex items-center gap-2">
+      <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg flex items-center justify-center">
+        <span class="material-symbols-outlined text-white text-lg">dashboard</span>
+      </div>
+      <span class="text-lg font-extrabold text-white tracking-tight">Admin Panel</span>
+    </a>
+    <div class="flex items-center gap-1 text-sm flex-wrap">
+      <% const links = [
+        { href: '/admin', key: 'dashboard', label: 'Dashboard', icon: 'space_dashboard', color: 'amber' },
+        { href: '/admin/hero-slides', key: 'hero-slides', label: 'Slides', icon: 'slideshow', color: 'blue' },
+        { href: '/admin/categories', key: 'categories', label: 'Categories', icon: 'category', color: 'emerald' },
+        { href: '/admin/features', key: 'features', label: 'Features', icon: 'star', color: 'violet' },
+        { href: '/admin/about', key: 'about', label: 'About', icon: 'info', color: 'indigo' },
+        { href: '/admin/contact', key: 'contact', label: 'Contact', icon: 'call', color: 'teal' },
+        { href: '/admin/messages', key: 'messages', label: 'Messages', icon: 'mail', color: 'rose' },
+        { href: '/admin/leads', key: 'leads', label: 'Leads', icon: 'people', color: 'orange' },
+        { href: '/admin/newsletter', key: 'newsletter', label: 'Newsletter', icon: 'newspaper', color: 'pink' },
+        { href: '/admin/analytics', key: 'analytics', label: 'Analytics', icon: 'analytics', color: 'cyan' },
+        { href: '/admin/site-settings', key: 'settings', label: 'Settings', icon: 'settings', color: 'slate' },
+      ]; %>
+      <% links.forEach(function(link) { %>
+        <a href="<%= link.href %>" class="flex items-center gap-1 px-3 py-1.5 rounded-lg transition-all duration-200 <%= current === link.key ? 'bg-white/20 text-white font-semibold shadow-inner' : 'text-slate-300 hover:bg-white/10 hover:text-white' %>">
+          <span class="material-symbols-outlined text-base"><%= link.icon %></span>
+          <span class="hidden xl:inline"><%= link.label %></span>
+        </a>
+      <% }); %>
+      <div class="w-px h-6 bg-white/20 mx-1"></div>
+      <a href="/admin/logout" class="flex items-center gap-1 px-3 py-1.5 rounded-lg text-red-300 hover:bg-red-500/20 hover:text-red-200 transition-all">
+        <span class="material-symbols-outlined text-base">logout</span>
+        <span class="hidden xl:inline">Logout</span>
+      </a>
     </div>
   </div>
 </nav>

@@ -3,57 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Akbik Admin - Hero Slides</title>
+  <title>Admin - Hero Slides</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <style>body{font-family:'Inter',sans-serif}</style>
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-slate-100 min-h-screen">
   <%- include('../partials/nav', { current: 'hero-slides' }) %>
 
   <div class="max-w-7xl mx-auto px-4 py-8">
-    <div class="flex items-center justify-between mb-6">
-      <h1 class="text-2xl font-bold text-gray-800">Hero Slides</h1>
-      <a href="/admin/hero-slides/new" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm font-medium">+ New Slide</a>
+    <div id="page-header" class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-2xl font-extrabold text-slate-800">Hero Slides</h1>
+        <p class="text-slate-500 text-sm mt-1">Manage homepage hero slider</p>
+      </div>
+      <a id="add-btn" href="/admin/hero-slides/new" class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-5 py-2.5 rounded-xl hover:from-blue-600 hover:to-blue-700 text-sm font-semibold shadow-lg shadow-blue-500/25 transition-all">
+        <span class="material-symbols-outlined text-lg">add</span> New Slide
+      </a>
     </div>
 
-    <div class="bg-white rounded-xl shadow-sm border overflow-hidden">
+    <div id="slides-table" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
       <table class="w-full">
-        <thead class="bg-gray-50 border-b">
+        <thead class="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
           <tr>
-            <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Image</th>
-            <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Headline</th>
-            <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Badge</th>
-            <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Order</th>
-            <th class="text-right px-4 py-3 text-sm font-medium text-gray-600">Actions</th>
+            <th class="text-left px-5 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Image</th>
+            <th class="text-left px-5 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Headline</th>
+            <th class="text-left px-5 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Badge</th>
+            <th class="text-left px-5 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Order</th>
+            <th class="text-right px-5 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Actions</th>
           </tr>
         </thead>
         <tbody>
           <% slides.forEach(function(slide) { %>
-          <tr class="border-b hover:bg-gray-50">
-            <td class="px-4 py-3">
+          <tr class="border-b border-slate-100 hover:bg-blue-50/50 transition-colors">
+            <td class="px-5 py-4">
               <% if (slide.image_url) { %>
-                <img src="<%= slide.image_url %>" class="w-20 h-12 object-cover rounded" />
+                <img src="<%= slide.image_url %>" class="w-20 h-12 object-cover rounded-lg shadow-sm" />
               <% } else { %>
-                <div class="w-20 h-12 bg-gray-200 rounded flex items-center justify-center text-gray-400 text-xs">No image</div>
+                <div class="w-20 h-12 bg-slate-200 rounded-lg flex items-center justify-center text-slate-400 text-xs">No image</div>
               <% } %>
             </td>
-            <td class="px-4 py-3 text-sm text-gray-800"><%= slide.headline %></td>
-            <td class="px-4 py-3 text-sm text-gray-500"><%= slide.badge_text || '-' %></td>
-            <td class="px-4 py-3 text-sm text-gray-500"><%= slide.sort_order %></td>
-            <td class="px-4 py-3 text-right">
-              <a href="/admin/hero-slides/<%= slide._id %>/edit" class="text-blue-600 hover:text-blue-700 text-sm mr-3">Edit</a>
+            <td class="px-5 py-4 text-sm font-semibold text-slate-800"><%= slide.headline %></td>
+            <td class="px-5 py-4"><span class="text-xs bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full font-medium"><%= slide.badge_text || '-' %></span></td>
+            <td class="px-5 py-4"><span class="text-sm text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg font-mono"><%= slide.sort_order %></span></td>
+            <td class="px-5 py-4 text-right">
+              <a href="/admin/hero-slides/<%= slide._id %>/edit" class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 text-sm font-medium mr-3">
+                <span class="material-symbols-outlined text-base">edit</span> Edit
+              </a>
               <form method="POST" action="/admin/hero-slides/<%= slide._id %>/delete" class="inline" onsubmit="return confirm('Delete this slide?')">
-                <button type="submit" class="text-red-600 hover:text-red-700 text-sm">Delete</button>
+                <button type="submit" class="inline-flex items-center gap-1 text-red-500 hover:text-red-700 text-sm font-medium">
+                  <span class="material-symbols-outlined text-base">delete</span> Delete
+                </button>
               </form>
             </td>
           </tr>
           <% }); %>
           <% if (slides.length === 0) { %>
-          <tr><td colspan="5" class="px-4 py-8 text-center text-gray-400">No slides yet</td></tr>
+          <tr><td colspan="5" class="px-5 py-12 text-center text-slate-400">
+            <span class="material-symbols-outlined text-5xl mb-2 text-slate-300">slideshow</span>
+            <p class="font-medium">No slides yet</p>
+          </td></tr>
           <% } %>
         </tbody>
       </table>
     </div>
   </div>
+  <%
+    var tourSteps = [
+      { element: '#page-header', popover: { title: 'Hero Slides', description: 'Hero slides appear as the main banner carousel on your homepage. Visitors see these first when they visit your site.' } },
+      { element: '#add-btn', popover: { title: 'Add New Slide', description: 'Click here to create a new hero slide. You can upload an image, set a headline, badge text, and action buttons.' } },
+      { element: '#slides-table', popover: { title: 'Slides List', description: 'All your hero slides are listed here. You can edit or delete each slide. The "Order" column controls which slide appears first.' } },
+      { popover: { title: 'Tips', description: 'Use high-quality wide images (1920x800 recommended). Keep headlines short and impactful. The badge text appears as a small label above the headline.' } }
+    ];
+    var tourKey = 'hero-slides';
+  %>
+  <%- include('../partials/tour', { tourSteps: tourSteps, tourKey: tourKey }) %>
 </body>
 </html>

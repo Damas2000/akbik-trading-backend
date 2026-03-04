@@ -1,47 +1,63 @@
-<% var body = `
-<div class="min-h-screen flex items-center justify-center bg-gray-100">
-  <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-    <h1 class="text-2xl font-bold text-center mb-6">Akbik Admin Login</h1>
-    ${error ? '<div class="bg-red-50 text-red-600 p-3 rounded mb-4 text-sm">' + error + '</div>' : ''}
-    <form method="POST" action="/admin/login">
-      <div class="mb-4">
-        <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
-        <input name="username" type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
-      </div>
-      <div class="mb-6">
-        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-        <input name="password" type="password" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
-      </div>
-      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 font-medium">Login</button>
-    </form>
-  </div>
-</div>
-` %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Akbik Admin - Login</title>
+  <title>Admin Login</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <style>body{font-family:'Inter',sans-serif}</style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
-  <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-    <h1 class="text-2xl font-bold text-center mb-6">Akbik Admin Login</h1>
-    <% if (error) { %>
-      <div class="bg-red-50 text-red-600 p-3 rounded mb-4 text-sm"><%= error %></div>
-    <% } %>
-    <form method="POST" action="/admin/login">
-      <div class="mb-4">
-        <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
-        <input name="username" type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 relative overflow-hidden">
+  <!-- Background decoration -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute -top-40 -right-40 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-violet-500/5 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="relative z-10 w-full max-w-md px-4">
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl shadow-lg shadow-amber-500/25 mb-4">
+        <span class="material-symbols-outlined text-white text-3xl">shield_person</span>
       </div>
-      <div class="mb-6">
-        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-        <input name="password" type="password" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
-      </div>
-      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 font-medium">Login</button>
-    </form>
+      <h1 class="text-3xl font-extrabold text-white tracking-tight">Admin Panel</h1>
+      <p class="text-slate-400 mt-1">Sign in to manage your site</p>
+    </div>
+
+    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-8 shadow-2xl">
+      <% if (error) { %>
+        <div class="bg-red-500/20 border border-red-400/30 text-red-200 px-4 py-3 rounded-xl mb-6 text-sm flex items-center gap-2">
+          <span class="material-symbols-outlined text-lg">error</span>
+          <%= error %>
+        </div>
+      <% } %>
+      <form method="POST" action="/admin/login" class="space-y-5">
+        <div>
+          <label class="block text-sm font-semibold text-slate-300 mb-2">Username</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+              <span class="material-symbols-outlined text-xl">person</span>
+            </span>
+            <input name="username" type="text" required class="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-slate-400 focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400/50 focus:outline-none transition-all" placeholder="Enter username" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-slate-300 mb-2">Password</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+              <span class="material-symbols-outlined text-xl">lock</span>
+            </span>
+            <input name="password" type="password" required class="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-slate-400 focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400/50 focus:outline-none transition-all" placeholder="Enter password" />
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 rounded-xl hover:from-amber-600 hover:to-orange-600 font-bold text-sm tracking-wide shadow-lg shadow-amber-500/25 transition-all duration-200 flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-lg">login</span>
+          Sign In
+        </button>
+      </form>
+    </div>
   </div>
 </body>
 </html>

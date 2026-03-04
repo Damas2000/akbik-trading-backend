@@ -14,6 +14,8 @@ const siteSettingsSchema = new mongoose.Schema({
   meta_title: { type: String, default: 'Akbik Trading - Hardware Experts' },
   meta_description: { type: String, default: 'Quality tools and construction supplies for professionals and DIY enthusiasts' },
   meta_keywords: { type: String, default: '' },
+  cta_title: { type: String, default: '' },
+  cta_description: { type: String, default: '' },
 }, { timestamps: true });
 
 module.exports = mongoose.model('SiteSettings', siteSettingsSchema);

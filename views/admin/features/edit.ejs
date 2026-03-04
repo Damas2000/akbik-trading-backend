@@ -3,68 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Akbik Admin - Features Section</title>
+  <title>Admin - Features Section</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <style>body{font-family:'Inter',sans-serif}</style>
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-slate-100 min-h-screen">
   <%- include('../partials/nav', { current: 'features' }) %>
 
   <div class="max-w-3xl mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6">Features Section</h1>
+    <div class="mb-6">
+      <h1 class="text-2xl font-extrabold text-slate-800">Features Section</h1>
+      <p class="text-slate-500 text-sm mt-1">Edit the homepage features section</p>
+    </div>
 
-    <form method="POST" action="/admin/features" enctype="multipart/form-data" class="bg-white rounded-xl shadow-sm border p-6 space-y-4">
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Title *</label>
-        <input name="title" type="text" required value="<%= section.title || '' %>" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-        <textarea name="description" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg"><%= section.description || '' %></textarea>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Badge Text</label>
-        <input name="badge_text" type="text" value="<%= section.badge_text || '' %>" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Image</label>
-        <% if (section.image_url) { %>
-          <img src="<%= section.image_url %>" class="w-40 h-24 object-cover rounded mb-2" />
-        <% } %>
-        <input name="image" type="file" accept="image/*" class="w-full text-sm" />
+    <form method="POST" action="/admin/features" enctype="multipart/form-data" class="space-y-6">
+      <div id="content-section" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 space-y-5">
+        <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+          <span class="material-symbols-outlined text-violet-500">edit_note</span> Content
+        </h2>
+        <div>
+          <label class="block text-sm font-bold text-slate-700 mb-2">Title *</label>
+          <input name="title" type="text" required value="<%= section.title || '' %>" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all" />
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-slate-700 mb-2">Description</label>
+          <textarea name="description" rows="3" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all"><%= section.description || '' %></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-slate-700 mb-2">Badge Text</label>
+          <input name="badge_text" type="text" value="<%= section.badge_text || '' %>" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all" />
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-slate-700 mb-2">Image</label>
+          <% if (section.image_url) { %>
+            <img src="<%= section.image_url %>" class="w-40 h-24 object-cover rounded-xl mb-3 shadow-sm" />
+          <% } %>
+          <input name="image" type="file" accept="image/*" class="w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100" />
+        </div>
       </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Feature Cards</label>
+      <div id="cards-section" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 space-y-5">
+        <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+          <span class="material-symbols-outlined text-amber-500">grid_view</span> Feature Cards
+        </h2>
         <div id="cards-container" class="space-y-4">
           <% if (section.cards && section.cards.length > 0) { %>
             <% section.cards.forEach(function(card) { %>
-            <div class="border rounded-lg p-4 bg-gray-50 card-row">
+            <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 card-row hover:border-violet-300 transition-colors">
               <div class="grid grid-cols-3 gap-3">
                 <div>
-                  <label class="block text-xs text-gray-500 mb-1">Icon (Material Symbol)</label>
-                  <input name="cards_icon" type="text" value="<%= card.icon %>" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="e.g. verified_user" />
+                  <label class="block text-xs font-semibold text-slate-500 mb-1">Icon (Material Symbol)</label>
+                  <input name="cards_icon" type="text" value="<%= card.icon %>" class="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500" placeholder="e.g. verified_user" />
                 </div>
                 <div>
-                  <label class="block text-xs text-gray-500 mb-1">Title</label>
-                  <input name="cards_title" type="text" value="<%= card.title %>" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+                  <label class="block text-xs font-semibold text-slate-500 mb-1">Title</label>
+                  <input name="cards_title" type="text" value="<%= card.title %>" class="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500" />
                 </div>
                 <div>
-                  <label class="block text-xs text-gray-500 mb-1">Description</label>
-                  <input name="cards_description" type="text" value="<%= card.description %>" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+                  <label class="block text-xs font-semibold text-slate-500 mb-1">Description</label>
+                  <input name="cards_description" type="text" value="<%= card.description %>" class="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500" />
                 </div>
               </div>
-              <button type="button" onclick="this.parentElement.remove()" class="text-red-500 text-xs mt-2 hover:text-red-700">Remove Card</button>
+              <button type="button" onclick="this.parentElement.remove()" class="flex items-center gap-1 text-red-500 text-xs mt-3 hover:text-red-700 font-medium">
+                <span class="material-symbols-outlined text-sm">close</span> Remove Card
+              </button>
             </div>
             <% }); %>
           <% } %>
         </div>
-        <button type="button" onclick="addCard()" class="mt-2 text-blue-600 text-sm hover:text-blue-700">+ Add Card</button>
+        <button type="button" onclick="addCard()" class="flex items-center gap-1 text-violet-600 text-sm font-semibold hover:text-violet-700">
+          <span class="material-symbols-outlined text-lg">add_circle</span> Add Card
+        </button>
       </div>
 
-      <div class="flex gap-3 pt-4">
-        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-medium">Save</button>
-        <a href="/admin" class="px-6 py-2 rounded-lg border text-gray-600 hover:bg-gray-50">Cancel</a>
+      <div class="flex gap-3">
+        <button type="submit" class="bg-gradient-to-r from-violet-500 to-violet-600 text-white px-8 py-3 rounded-xl hover:from-violet-600 hover:to-violet-700 font-semibold shadow-lg shadow-violet-500/25 transition-all flex items-center gap-2">
+          <span class="material-symbols-outlined text-lg">save</span> Save Features
+        </button>
+        <a href="/admin" class="px-8 py-3 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-medium transition-all">Cancel</a>
       </div>
     </form>
   </div>
@@ -73,26 +91,38 @@
     function addCard() {
       const container = document.getElementById('cards-container');
       const row = document.createElement('div');
-      row.className = 'border rounded-lg p-4 bg-gray-50 card-row';
+      row.className = 'border border-slate-200 rounded-xl p-5 bg-slate-50 card-row hover:border-violet-300 transition-colors';
       row.innerHTML = `
         <div class="grid grid-cols-3 gap-3">
           <div>
-            <label class="block text-xs text-gray-500 mb-1">Icon (Material Symbol)</label>
-            <input name="cards_icon" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="e.g. verified_user" />
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Icon (Material Symbol)</label>
+            <input name="cards_icon" type="text" class="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500" placeholder="e.g. verified_user" />
           </div>
           <div>
-            <label class="block text-xs text-gray-500 mb-1">Title</label>
-            <input name="cards_title" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Title</label>
+            <input name="cards_title" type="text" class="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500" />
           </div>
           <div>
-            <label class="block text-xs text-gray-500 mb-1">Description</label>
-            <input name="cards_description" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Description</label>
+            <input name="cards_description" type="text" class="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500" />
           </div>
         </div>
-        <button type="button" onclick="this.parentElement.remove()" class="text-red-500 text-xs mt-2 hover:text-red-700">Remove Card</button>
+        <button type="button" onclick="this.parentElement.remove()" class="flex items-center gap-1 text-red-500 text-xs mt-3 hover:text-red-700 font-medium">
+          <span class="material-symbols-outlined text-sm">close</span> Remove Card
+        </button>
       `;
       container.appendChild(row);
     }
   </script>
+  <%
+    var tourSteps = [
+      { element: '#content-section', popover: { title: 'Features Content', description: 'Set the main title, description, badge text and image for the features section on your homepage.' } },
+      { element: '#cards-section', popover: { title: 'Feature Cards', description: 'Add feature cards that highlight your strengths (e.g. Quality Brands, Fast Delivery). Each card has an icon, title, and description.' } },
+      { element: '#cards-container', popover: { title: 'Card Management', description: 'Add or remove cards dynamically. Icons use Material Symbols names - search "Material Symbols" on Google for icon names.' } },
+      { popover: { title: 'Tips', description: 'Keep it to 3-4 cards for best visual balance. Use short, punchy titles. The badge text appears above the main title on the frontend.' } }
+    ];
+    var tourKey = 'features';
+  %>
+  <%- include('../partials/tour', { tourSteps: tourSteps, tourKey: tourKey }) %>
 </body>
 </html>

@@ -28,6 +28,28 @@ router.get('/', async (req, res) => {
   res.render('admin/dashboard', { slidesCount, categoriesCount, productsCount, messagesCount, newLeadsCount, subscribersCount, totalPageViews });
 });
 
+// ========== RESET ALL DATA ==========
+router.post('/reset-all', async (req, res) => {
+  try {
+    await Promise.all([
+      HeroSlide.deleteMany({}),
+      Category.deleteMany({}),
+      Product.deleteMany({}),
+      FeaturesSection.deleteMany({}),
+      AboutPage.deleteMany({}),
+      ContactInfo.deleteMany({}),
+      SiteSettings.deleteMany({}),
+      Newsletter.deleteMany({}),
+      PageView.deleteMany({}),
+    ]);
+    // Keep admin account and messages intact
+    res.redirect('/admin');
+  } catch (err) {
+    console.error('Reset error:', err);
+    res.redirect('/admin');
+  }
+});
+
 // ========== HERO SLIDES ==========
 router.get('/hero-slides', async (req, res) => {
   const slides = await HeroSlide.find().sort('sort_order');

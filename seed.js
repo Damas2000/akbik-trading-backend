@@ -24,68 +24,102 @@ async function seed() {
     console.log('Admin user already exists');
   }
 
-  // Hero Slide
+  // ==================== HERO SLIDES (3 slides) ====================
   const slideCount = await HeroSlide.countDocuments();
   if (slideCount === 0) {
-    await HeroSlide.create({
-      image_url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA6yVZ-SC39jTONkOzADUv1O9zKLvJvFPSfbxd55AZZ-ZsbN8fHBzeGsmXKtOsHmsiRXy0HVXYw5YzkAt3UT1daRKi-boPqHoVenH4OUSAtNTFAwTHYk3i9-jjC_tIND81BfBF_HqfMJTTBoTSdJA6VUzRtuLHk9XXWLnwK58xvMFkBXVFXSFKc6MkcXpdcO0N1pPQFo838fzbJ-h7KHQrtqS-uEhcrciC29-q47AqHzqxpYtpULyysDRtS1a36xKUUylMSNheIrvCs',
-      headline: 'Built for the Professionals, Made for Everyone.',
-      subheading: 'From heavy-duty power tools to industrial hardware, we provide high-performance supplies for the boldest projects.',
-      badge_text: 'Free Delivery on Orders Over $100',
-      sort_order: 0,
-      buttons: [
-        { label: 'SHOP COLLECTION', url: '#', style: 'primary', sort_order: 0 },
-        { label: 'OUR SERVICES', url: '#', style: 'secondary', sort_order: 1 },
-      ],
-    });
-    console.log('Hero slide created');
+    await HeroSlide.insertMany([
+      {
+        image_url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=80',
+        headline: 'Your Trusted Partner in Hardware & Building Supplies',
+        subheading: 'From industrial-grade power tools to premium construction materials — Akbik Trading delivers quality you can build on.',
+        badge_text: 'Serving the Region Since 1985',
+        sort_order: 0,
+        buttons: [
+          { label: 'BROWSE PRODUCTS', url: '#', style: 'primary', sort_order: 0 },
+          { label: 'CONTACT US', url: '/contact', style: 'secondary', sort_order: 1 },
+        ],
+      },
+      {
+        image_url: 'https://images.unsplash.com/photo-1581783898377-1c85bf937427?w=1600&q=80',
+        headline: 'Professional Tools for Every Job',
+        subheading: 'Whether you are a seasoned contractor or a weekend warrior, we have the tools and expertise to get the job done right.',
+        badge_text: 'Over 10,000 Products In Stock',
+        sort_order: 1,
+        buttons: [
+          { label: 'SHOP POWER TOOLS', url: '#', style: 'primary', sort_order: 0 },
+          { label: 'VIEW CATALOG', url: '#', style: 'secondary', sort_order: 1 },
+        ],
+      },
+      {
+        image_url: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=80',
+        headline: 'Build Smarter, Build Stronger',
+        subheading: 'Premium building materials, expert advice, and fast delivery across the region. Your project starts here.',
+        badge_text: 'Free Delivery on Orders Over $200',
+        sort_order: 2,
+        buttons: [
+          { label: 'GET A QUOTE', url: '/contact', style: 'primary', sort_order: 0 },
+          { label: 'OUR SERVICES', url: '/about', style: 'secondary', sort_order: 1 },
+        ],
+      },
+    ]);
+    console.log('3 Hero slides created');
   } else {
     console.log('Hero slides already exist');
   }
 
-  // Categories
+  // ==================== CATEGORIES (6 categories) ====================
   const catCount = await Category.countDocuments();
   if (catCount === 0) {
     await Category.insertMany([
       {
         name: 'Power Tools',
-        image_url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDOUMoN7r73KMuj7XAN7eZBRnhToYgRKd1gAoYFVlDp8-CNf5lBeR6K8Z08jp2vKVNZPcVU65-Wol3tO9LYG0Z0wklJ55OaRy1FCjtBtgsf0qZ7fi864EVo6Am9uCupz_YLeod03FULhUDRSAB0boaqBLG8CEDCjfzTrH2k31ZfgHnYJA9QqRCH4XlK4wY7CyiMl0zAe0KpEgZgDv9vRayeuOAmqSTLOOVcgDpZfQlr1nqDNGoHCcAwYggisbT6VZJg1sju09I4In99',
+        image_url: 'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=600&q=80',
         sort_order: 0,
       },
       {
-        name: 'Industrial Plumbing',
-        image_url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDGsfZuGQHt8sEPILY8l4shXA4ZEkTPTTfqTwo7IVa7UBQ0cw-gjUhZdsx-LthhjR-9GJ9Vuug4ly45C3snOVFWFT9LIwV1OdeaYEet5Ba5NCyxwrzWwPrLTZ6gmCu6qLzd8bp3pyVW-wFagsTaNT3u3h0Safgc08GFyn17j64_GknEntW0M74D4H_oe3nPGi59r_tR_UtdQvdEZEXD1oDGPk1cbtQ9Hu0bjzr_i-D0PPr6eZVFnLYWFOvgqkSi2kHPOhLGSHxphxvG',
+        name: 'Hand Tools',
+        image_url: 'https://images.unsplash.com/photo-1530124566582-a45a7e3d0a60?w=600&q=80',
         sort_order: 1,
       },
       {
-        name: 'Paint & Coatings',
-        image_url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA0bzcFuhKMhVSn3MREnMUtIXUi2fO-fDmjaW0Itc_bqIOseAo7QtGn3w34ymLCUXYw8iOYBQ_qysrSthNiud9mWCHmTHI1b3sdW2BWwObLDP99qXHQSCsgRUJOIFV6CoVHwNTEgFUxi5kT8FdlhA2v7dvutchVfxFRvwVK9Dwf7rfOs_SWOfEx-RCpzeK5ryvea7_5yE0Iid7q6Vg6dpS1Qx2doLDr1mRwbgKKJ_ltTuOw4GWtWtw5-7A9pm0n1qavYJLoCoTzfMLi',
+        name: 'Plumbing Supplies',
+        image_url: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=600&q=80',
         sort_order: 2,
       },
       {
-        name: 'Electrical Supply',
-        image_url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCXF5YLhvR5B4Iwd2IQFm7r1OicMc_6ZmpQU2kMd1jkrZ2Z65OrWUbGsMOJL2dYXxWy42Jb6MRbBqTj9ZPbRQS5sePQRPpPyo0GCyo_Bbu8l_ZZPlsWD6lWb37izXNh01mlWRd-TytYgUPu-WLcz5vtuTWCufBUICiOklWAIuTEzcMlpDG-2yJTXeNZagdzdrfEL5UqdUne4iJeh01XTuBlABg9Ii3yw4dmqckVFHAuuKxIlfkXtIPXDzU-mZegHHRHqUT7eWPoG4WZ',
+        name: 'Paints & Finishes',
+        image_url: 'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=600&q=80',
         sort_order: 3,
       },
+      {
+        name: 'Electrical & Lighting',
+        image_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80',
+        sort_order: 4,
+      },
+      {
+        name: 'Safety & Workwear',
+        image_url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80',
+        sort_order: 5,
+      },
     ]);
-    console.log('Categories created');
+    console.log('6 Categories created');
   } else {
     console.log('Categories already exist');
   }
 
-  // Features Section
+  // ==================== FEATURES SECTION ====================
   const featCount = await FeaturesSection.countDocuments();
   if (featCount === 0) {
     await FeaturesSection.create({
-      title: 'Rugged Hardware Since 1998',
-      description: "We aren't just selling tools; we're building the infrastructure of our community. Our expert team of retired trade masters ensures you get the right spec, every time.",
-      image_url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAlWCc95okIolSU3HTVezMD1LxJaEptY3Z8JQ4x17lvqY236L-jgdyAUuUevkxcJ8DxSyXZJXbH6ROoAS5GS6y2fEEkQMk6Dtwt2YyugXOx1bhTP4sPaDkxdoiHpImRrAKsJhEwT_hji6su9nV1PINHFD5vSJWjgRSfGvxiIRCcjFPnrNisAPiYdOQPMXn-nb9q8zm2Yw9X-rnSLnJKeZZQcCW2F6pu3U6x0NmnWBMjGBW0zCBE1t0p4SP0uaZAzbirsiL7uLhKxdhR',
+      title: 'Trusted Expertise Since 1985',
+      description: 'Akbik Trading has been the go-to hardware supplier for contractors, builders, and homeowners across the region. Our knowledgeable team ensures you get exactly what your project demands — no compromises, no shortcuts.',
+      image_url: 'https://images.unsplash.com/photo-1581783898377-1c85bf937427?w=800&q=80',
       badge_text: '100% Satisfaction Guaranteed',
       cards: [
-        { icon: 'verified_user', title: 'Quality Brands', description: 'Authorized dealer for heavy-duty industrial giants.', sort_order: 0 },
-        { icon: 'local_shipping', title: 'Rapid Delivery', description: 'Fleet response for on-site supply replenishment.', sort_order: 1 },
-        { icon: 'support_agent', title: 'Trade Support', description: 'Technical project assistance from trade veterans.', sort_order: 2 },
-        { icon: 'inventory', title: 'Massive Stock', description: 'Ready-to-ship inventory for large-scale contracts.', sort_order: 3 },
+        { icon: 'verified_user', title: 'Authorized Dealer', description: 'Official distributor for DeWalt, Makita, Bosch, Milwaukee, and other leading brands.', sort_order: 0 },
+        { icon: 'local_shipping', title: 'Fast Delivery', description: 'Same-day dispatch for in-stock items. Region-wide delivery fleet at your service.', sort_order: 1 },
+        { icon: 'support_agent', title: 'Expert Support', description: 'Technical guidance from trade professionals with 20+ years of hands-on experience.', sort_order: 2 },
+        { icon: 'inventory', title: 'Huge Inventory', description: 'Over 10,000 products ready to ship from our 5,000 sqm warehouse facility.', sort_order: 3 },
       ],
     });
     console.log('Features section created');
@@ -93,82 +127,87 @@ async function seed() {
     console.log('Features section already exists');
   }
 
-  // About Page
+  // ==================== ABOUT PAGE ====================
   const aboutCount = await AboutPage.countDocuments();
   if (aboutCount === 0) {
     await AboutPage.create({
-      hero_image_url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDG-qJw2JQqU2LXDLwmE9nNO9nTlntoT4-0QYrbRtU6scGGKAp8cNAhoKgRaXP2B4BgHIL2bLRE2LaPs2tOLnni5CnzZfKXFNfwlXIxjjwHVmKoVn0Kxxr3dN0khlM0O8BGbcX9G4KruIINs90czPek4DT4Cu61YJtO-bPHH6nzP1Qw9A3aKFXS_-ZX3vI8l-SU88WXq3vVArx4h9sVLvXgDBvSnLW8ydOATHz8vmPItU48aqrTBTR4khOUVDRk-BA4MppI8v38rLd4',
-      hero_badge: 'Since 1954',
-      hero_title: 'Our Legacy of Service',
-      hero_description: 'Serving our community for over three generations with quality tools, expert advice, and a handshake you can trust.',
+      hero_image_url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=80',
+      hero_badge: 'Since 1985',
+      hero_title: 'Building Trust, One Project at a Time',
+      hero_description: 'For nearly four decades, Akbik Trading has been equipping professionals and DIY enthusiasts with the best tools, materials, and expert advice in the industry.',
       hero_button1_text: 'Get in Touch',
       hero_button1_url: '/contact',
-      hero_button2_text: 'View Our History',
+      hero_button2_text: 'Our Products',
       hero_button2_url: '#',
       story_subtitle: 'Our Story',
-      story_title: 'From Humble Beginnings to a Community Pillar',
+      story_title: 'From a Small Workshop to a Regional Leader',
       story_paragraphs: [
-        'Founded in 1954 by Arthur "Artie" Miller, Akbik Trading started as a small, one-room workshop in the heart of the valley. Artie believed that a hardware store should be more than just a place to buy nails\u2014it should be a resource for the neighborhood, a place where advice was free and every customer was treated like family.',
-        'As the years passed and the town grew, so did we. We\'ve weathered economic shifts and technological revolutions, but our core mission has never wavered: "Build it right the first time."',
-        'Today, Akbik Trading is managed by the third generation of the Miller family. While we\'ve added high-tech inventory systems and expanded our delivery fleet, we still keep a pot of coffee brewing for our regulars and take the time to walk you through every step of your DIY project.',
+        'Akbik Trading was founded in 1985 with a simple mission: provide the highest quality hardware and building supplies at fair prices. What started as a modest storefront has grown into one of the region\'s most trusted names in the construction and hardware industry.',
+        'Over the years, we have built lasting relationships with top manufacturers worldwide — from DeWalt and Makita to Bosch and Stanley. These partnerships allow us to offer an unmatched selection of professional-grade products backed by manufacturer warranties and local support.',
+        'Today, Akbik Trading serves thousands of contractors, builders, interior designers, and homeowners from our 5,000 sqm showroom and warehouse. While our operations have expanded significantly, our core values remain unchanged — quality products, honest pricing, and service you can count on.',
       ],
       card1_icon: 'verified',
-      card1_title: 'Quality First',
-      card1_description: "We only stock brands we'd use in our own homes.",
+      card1_title: 'Quality Guaranteed',
+      card1_description: 'We stock only brands we trust and stand behind every product we sell with full warranty support.',
       card2_icon: 'groups',
-      card2_title: 'Community Led',
-      card2_description: 'Proud sponsors of local youth sports and housing initiatives.',
-      image1_url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBa_dJeh_1ypFxMmwvVimQ9YDij-MHLzzBz0jynCYDbE8DSooWMaYtKMTomkm6dRyUth_2QUeu-EXH6upD07Yg3dORnr1USW4Ztz3HA-xGaVekD430png4tnLDOXk8uSERypgiKkGMX8GohtleiwMwluDy8ImGyQKYNnjezeRF40_vnaw9a38xHdPkyJVX3Iij3PPGSqoCVnXo6a9w_8mfpBWflTlC4GHgB2ahx9100tiUj2WdKw81tEUA8F-C6UMGPWfbl4Fj2WEvW',
-      image1_caption: 'Our Expert Team (2024)',
-      image2_url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBS71zp1sMiXpsES50u5Z2wEWO3QH_T9ezkyNsGe6MDXKaMpEsviozB_99b098KhVElm4FJryFR6P0OnrDRSs54LZXh67uZ5wcByAxBJ2ZFfzRhsWgDqk51wWvBTsFt5JC3HvDinnuaT0YqLC5fynChXFsQTr7jnIGQ06UR8UNCMdMaIQT--fhfCoRmyr2DWboGHHjrurApegZIxfhPckwu-QF9xMPxgGilcm-AGnKo0l9QfGKlE8820zDrqa3qrclG-pQvCKsjkPgq',
-      image3_url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBf4aDjStWQCER0iWON8BEnlqwovxzZtYHAbO27xnKcJmdr4g0EF7lpU3YrAXrTr-9S5mcsRtb9rudpX-7BmGKBsIMGZz_MDQ6ZXh7oIjjX1U_0PJ9lpQlZVQgWwe6dMmMzqveQmgFb0qbE83L746IWljU-oN_XrE0Z3tQbhu7PJSVi1vrqKONHEluwGJwrdAbL90yFZEXhWSQgaMDGMORCp4QE14pye3kfU_FqRgGuAcbDDv3zQMyAVX2b_7IRYnqiKBcNvRJJ4sz_',
-      cta_title: 'Need expert advice?',
-      cta_description: 'Our staff has a combined experience of over 120 years in plumbing, electrical, and carpentry.',
-      cta_link_text: 'Talk to an Expert',
+      card2_title: 'Community Focused',
+      card2_description: 'Proud supporters of local trade schools, apprenticeship programs, and community development initiatives.',
+      image1_url: 'https://images.unsplash.com/photo-1581783898377-1c85bf937427?w=800&q=80',
+      image1_caption: 'Our Warehouse & Showroom',
+      image2_url: 'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=600&q=80',
+      image3_url: 'https://images.unsplash.com/photo-1530124566582-a45a7e3d0a60?w=600&q=80',
+      cta_title: 'Need help choosing the right materials?',
+      cta_description: 'Our specialists have combined experience of over 100 years in construction, plumbing, electrical, and finishing work.',
+      cta_link_text: 'Talk to a Specialist',
       cta_link_url: '/contact',
-      visit_title: 'Visit Us Today',
-      visit_description: 'We are open 7 days a week. Find us on Main Street or reach out for custom project quotes.',
+      visit_title: 'Visit Our Showroom',
+      visit_description: 'Come see our full product range in person. Walk through 5,000 sqm of tools, materials, and supplies. Our team is ready to help you find exactly what you need.',
     });
     console.log('About page created');
   } else {
     console.log('About page already exists');
   }
 
-  // Contact Info
+  // ==================== CONTACT INFO ====================
   const contactCount = await ContactInfo.countDocuments();
   if (contactCount === 0) {
     await ContactInfo.create({
       page_title: 'Get in Touch',
-      page_description: 'Have a project in mind? Our experts are ready to help you find the right tools and materials for the job. Visit us in-store or send a message below.',
-      google_maps_url: '',
-      address: '123 Builder Lane, Industrial District\nChicago, IL 60601',
-      phone: '(555) 123-4567',
-      email: 'hello@buildright.com',
-      hours_weekday: '7:00 AM - 8:00 PM',
-      hours_saturday: '8:00 AM - 6:00 PM',
-      hours_sunday: '9:00 AM - 4:00 PM',
+      page_description: 'Have a question about a product or need a custom quote for your project? Our team of experienced professionals is here to help. Reach out by phone, email, or visit our showroom.',
+      google_maps_url: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.5!2d35.5!3d33.89!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDU0JzAwLjAiTiAzNcKwMzAnMDAuMCJF!5e0!3m2!1sen!2s!4v1',
+      address: 'Industrial Zone, Block 7, Building 12\nBeirut, Lebanon',
+      phone: '+961 1 234 567',
+      email: 'info@akbiktrading.com',
+      hours_weekday: '8:00 AM - 6:00 PM',
+      hours_saturday: '8:00 AM - 2:00 PM',
+      hours_sunday: 'Closed',
     });
     console.log('Contact info created');
   } else {
     console.log('Contact info already exists');
   }
 
-  // Site Settings
+  // ==================== SITE SETTINGS ====================
   const settingsCount = await SiteSettings.countDocuments();
   if (settingsCount === 0) {
     await SiteSettings.create({
       site_name: 'Akbik Trading',
-      footer_text: 'Quality tools and construction supplies for professionals and DIY enthusiasts since 1954.',
-      meta_title: 'Akbik Trading - Hardware Experts',
-      meta_description: 'Quality tools and construction supplies for professionals and DIY enthusiasts',
-      meta_keywords: 'hardware, tools, construction, plumbing, electrical, paint',
+      footer_text: 'Your trusted partner for hardware, tools, and building supplies since 1985. Serving contractors, builders, and homeowners across the region with quality products and expert service.',
+      meta_title: 'Akbik Trading - Hardware & Building Supplies',
+      meta_description: 'Akbik Trading is a leading supplier of power tools, hand tools, plumbing supplies, paints, electrical equipment, and safety gear for professionals and homeowners.',
+      meta_keywords: 'hardware, tools, building supplies, plumbing, electrical, paint, construction, power tools, Akbik Trading, Lebanon',
+      cta_title: 'Stay Ahead of Your Next Project',
+      cta_description: 'Subscribe to our newsletter for new product alerts, trade tips, exclusive deals, and seasonal promotions delivered straight to your inbox.',
+      social_facebook: 'https://facebook.com/akbiktrading',
+      social_instagram: 'https://instagram.com/akbiktrading',
+      social_whatsapp: 'https://wa.me/9611234567',
     });
     console.log('Site settings created');
   } else {
     console.log('Site settings already exist');
   }
 
-  // Products (seed per category)
+  // ==================== PRODUCTS (3+ per category) ====================
   const productCount = await Product.countDocuments();
   if (productCount === 0) {
     const categories = await Category.find();
@@ -176,42 +215,65 @@ async function seed() {
     categories.forEach(c => { catMap[c.name] = c._id; });
 
     const products = [
-      // Power Tools
-      { category: catMap['Power Tools'], name: 'Cordless Drill 20V', price: 129.99, description: 'High-performance 20V cordless drill with brushless motor and 2-speed gearbox. Includes 2 batteries and carrying case.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Cordless+Drill', sort_order: 0 },
-      { category: catMap['Power Tools'], name: 'Circular Saw 7-1/4"', price: 189.99, description: 'Professional-grade circular saw with laser guide and dust blower. 15-amp motor for tough cuts through hardwood and plywood.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Circular+Saw', sort_order: 1 },
-      { category: catMap['Power Tools'], name: 'Impact Driver Kit', price: 149.99, description: 'Compact impact driver with 1,800 in-lbs of torque. Variable speed trigger and built-in LED work light.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Impact+Driver', sort_order: 2 },
-      { category: catMap['Power Tools'], name: 'Rotary Hammer SDS-Plus', price: 279.99, description: 'Heavy-duty rotary hammer for concrete and masonry. 3 modes: hammer drill, rotation only, and hammer only.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Rotary+Hammer', sort_order: 3 },
-      { category: catMap['Power Tools'], name: 'Angle Grinder 4-1/2"', price: 69.99, description: 'Versatile angle grinder for cutting, grinding, and polishing. 11,000 RPM with paddle switch for safety.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Angle+Grinder', sort_order: 4 },
+      // ===== Power Tools (5) =====
+      { category: catMap['Power Tools'], name: 'DeWalt 20V MAX Cordless Drill', price: 189.99, description: 'Professional-grade 20V MAX brushless cordless drill/driver with 2-speed gearbox, LED work light, side handle, and two 2.0Ah lithium-ion batteries with fast charger.', image_url: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&q=80', sort_order: 0 },
+      { category: catMap['Power Tools'], name: 'Makita 7-1/4" Circular Saw', price: 249.99, description: 'Powerful 15-amp motor circular saw with magnesium components for reduced weight. Features built-in dust blower, electric brake, and precision laser guide for accurate cuts.', image_url: 'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=400&q=80', sort_order: 1 },
+      { category: catMap['Power Tools'], name: 'Bosch SDS-Plus Rotary Hammer', price: 329.99, description: 'Heavy-duty rotary hammer for concrete, brick, and masonry. Three operation modes: hammer drill, rotation only, and chiseling. Vibration Control side handle and depth gauge included.', image_url: 'https://images.unsplash.com/photo-1530124566582-a45a7e3d0a60?w=400&q=80', sort_order: 2 },
+      { category: catMap['Power Tools'], name: 'Milwaukee M18 Impact Driver', price: 179.99, description: 'Compact impact driver delivering 1,800 in-lbs of torque. REDLINK intelligence prevents overload and overheating. Tri-LED lighting eliminates shadows. Battery and charger included.', image_url: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&q=80', sort_order: 3 },
+      { category: catMap['Power Tools'], name: 'Bosch 4-1/2" Angle Grinder', price: 84.99, description: 'Versatile angle grinder for cutting, grinding, and polishing metal, stone, and concrete. 11,000 RPM, paddle switch for safety, and Service Minder brush system.', image_url: 'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=400&q=80', sort_order: 4 },
 
-      // Industrial Plumbing
-      { category: catMap['Industrial Plumbing'], name: 'Copper Fitting Kit (50pc)', price: 89.99, description: 'Complete copper fitting assortment with elbows, tees, couplings, and adapters. Fits 1/2" to 1" pipes.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Copper+Fittings', sort_order: 0 },
-      { category: catMap['Industrial Plumbing'], name: 'PVC Pipe Set', price: 45.99, description: 'Schedule 40 PVC pipe bundle with assorted diameters. Ideal for drain, waste, and vent applications.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=PVC+Pipes', sort_order: 1 },
-      { category: catMap['Industrial Plumbing'], name: 'Ball Valve Set (6pc)', price: 64.99, description: 'Brass ball valves in common sizes. Full-port design for maximum flow rate. Lead-free and NSF certified.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Ball+Valves', sort_order: 2 },
-      { category: catMap['Industrial Plumbing'], name: 'Heavy-Duty Pipe Wrench 18"', price: 42.99, description: 'Forged steel pipe wrench with adjustable jaw. Self-tightening design grips pipes from 1/8" to 2".', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Pipe+Wrench', sort_order: 3 },
-      { category: catMap['Industrial Plumbing'], name: 'Submersible Water Pump', price: 189.99, description: 'Stainless steel submersible pump rated at 1/2 HP. Moves up to 2,000 GPH for dewatering and irrigation.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Water+Pump', sort_order: 4 },
+      // ===== Hand Tools (5) =====
+      { category: catMap['Hand Tools'], name: 'Stanley 65-Piece Socket Set', price: 89.99, description: 'Professional-grade chrome vanadium socket set with 1/4" and 3/8" drives. Includes ratchets, extensions, universal joint, and spark plug sockets in a durable blow-mold case.', image_url: 'https://images.unsplash.com/photo-1530124566582-a45a7e3d0a60?w=400&q=80', sort_order: 0 },
+      { category: catMap['Hand Tools'], name: 'Irwin Vise-Grip Pliers Set (5pc)', price: 64.99, description: 'Five essential locking pliers in one set: 10" curved jaw, 7" curved jaw, 6" long nose, 5" curved jaw, and 6" diagonal cutting. Chrome vanadium construction for durability.', image_url: 'https://images.unsplash.com/photo-1530124566582-a45a7e3d0a60?w=400&q=80', sort_order: 1 },
+      { category: catMap['Hand Tools'], name: 'Stanley FatMax Tape Measure 8m', price: 24.99, description: 'Heavy-duty 8m tape measure with BladeArmor coating for long blade life. Mylar polyester film for abrasion resistance. 3.3m standout for solo measuring jobs.', image_url: 'https://images.unsplash.com/photo-1530124566582-a45a7e3d0a60?w=400&q=80', sort_order: 2 },
+      { category: catMap['Hand Tools'], name: 'Knipex Adjustable Wrench Set (3pc)', price: 79.99, description: 'Three precision-forged adjustable wrenches (6", 8", and 10") with chrome vanadium steel and polished chrome finish. Precise jaw adjustment with no play.', image_url: 'https://images.unsplash.com/photo-1530124566582-a45a7e3d0a60?w=400&q=80', sort_order: 3 },
+      { category: catMap['Hand Tools'], name: 'Bahco Hacksaw Frame + 10 Blades', price: 34.99, description: 'Professional hacksaw frame with quick blade release mechanism and ergonomic soft-grip handle. Includes 10 bi-metal blades for cutting metal, plastic, and wood.', image_url: 'https://images.unsplash.com/photo-1530124566582-a45a7e3d0a60?w=400&q=80', sort_order: 4 },
 
-      // Paint & Coatings
-      { category: catMap['Paint & Coatings'], name: 'Interior Latex Paint (1 Gal)', price: 38.99, description: 'Premium interior latex paint with excellent coverage. Low-VOC formula in eggshell finish. One-coat coverage on most surfaces.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Latex+Paint', sort_order: 0 },
-      { category: catMap['Paint & Coatings'], name: 'Exterior Primer (1 Gal)', price: 32.99, description: 'High-adhesion exterior primer for wood, metal, and masonry. Blocks stains and seals porous surfaces.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Exterior+Primer', sort_order: 1 },
-      { category: catMap['Paint & Coatings'], name: 'Spray Paint Set (12 Cans)', price: 54.99, description: 'Assorted color spray paint set. Quick-dry enamel formula with EZ-touch fan spray tip for all surfaces.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Spray+Paint', sort_order: 2 },
-      { category: catMap['Paint & Coatings'], name: 'Wood Stain (1 Qt)', price: 18.99, description: 'Oil-based wood stain in classic walnut. Deep penetration formula enhances wood grain. Interior/exterior use.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Wood+Stain', sort_order: 3 },
-      { category: catMap['Paint & Coatings'], name: 'Epoxy Coating Kit', price: 79.99, description: 'Two-part epoxy coating for garage floors and concrete. Includes cleaner, epoxy base, and decorative chips.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Epoxy+Coating', sort_order: 4 },
+      // ===== Plumbing Supplies (5) =====
+      { category: catMap['Plumbing Supplies'], name: 'Copper Fitting Assortment (50pc)', price: 94.99, description: 'Complete professional copper fitting kit with elbows, tees, couplings, reducers, and end caps for 1/2" to 1" pipes. Meets all plumbing codes.', image_url: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=400&q=80', sort_order: 0 },
+      { category: catMap['Plumbing Supplies'], name: 'PPR Hot & Cold Pipe Bundle', price: 62.99, description: 'High-quality PPR pipes in 20mm, 25mm, and 32mm diameters. PN20 rated for hot water systems up to 95°C. 4-meter lengths, bundle of 10 pieces.', image_url: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=400&q=80', sort_order: 1 },
+      { category: catMap['Plumbing Supplies'], name: 'Brass Ball Valve Set (6pc)', price: 72.99, description: 'Premium forged brass ball valves in 1/2", 3/4", and 1" sizes (2 each). Full-port design for maximum flow. Chrome-plated, rated for 600 WOG.', image_url: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=400&q=80', sort_order: 2 },
+      { category: catMap['Plumbing Supplies'], name: 'Pipe Wrench Set (3pc)', price: 69.99, description: 'Heavy-duty forged steel pipe wrench set in 10", 14", and 18" sizes. Adjustable jaws with sharp teeth for positive grip. Perfect for plumbers and contractors.', image_url: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=400&q=80', sort_order: 3 },
+      { category: catMap['Plumbing Supplies'], name: 'Grundfos Submersible Pump 1HP', price: 349.99, description: 'Stainless steel submersible water pump with 1HP motor. Moves up to 5,000 liters per hour at 30m head. Ideal for wells, tanks, and irrigation systems.', image_url: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=400&q=80', sort_order: 4 },
 
-      // Electrical Supply
-      { category: catMap['Electrical Supply'], name: 'Electrical Wire Kit (500ft)', price: 149.99, description: 'Romex NM-B wire assortment. Includes 14/2, 12/2, and 14/3 gauges for residential wiring projects.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Wire+Kit', sort_order: 0 },
-      { category: catMap['Electrical Supply'], name: 'Circuit Breaker Panel 200A', price: 449.99, description: '200-amp main breaker load center with 30 spaces. Indoor rated with copper bus bars. UL listed.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Breaker+Panel', sort_order: 1 },
-      { category: catMap['Electrical Supply'], name: 'LED Bulb Pack (24pc)', price: 29.99, description: '60W equivalent LED bulbs in daylight white. 15,000-hour rated life. Energy Star certified. A19 base.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=LED+Bulbs', sort_order: 2 },
-      { category: catMap['Electrical Supply'], name: 'Outlet & Switch Set (20pc)', price: 34.99, description: 'Tamper-resistant outlets and toggle switches with wall plates. Residential grade, 15-amp rated.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Outlets+Set', sort_order: 3 },
-      { category: catMap['Electrical Supply'], name: 'Digital Cable Tester', price: 59.99, description: 'Professional digital cable tester with LCD display. Tests voltage, continuity, and wire mapping. CAT III rated.', image_url: 'https://placehold.co/400x400/1a1a2e/ffffff?text=Cable+Tester', sort_order: 4 },
+      // ===== Paints & Finishes (5) =====
+      { category: catMap['Paints & Finishes'], name: 'Jotun Majestic True Beauty (4L)', price: 52.99, description: 'Ultra-premium interior wall paint with silk-like finish. Superior coverage, washable, and stain-resistant. Available in over 2,000 colors via Jotun Multicolor system.', image_url: 'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=400&q=80', sort_order: 0 },
+      { category: catMap['Paints & Finishes'], name: 'Jotun Jotashield Extreme (4L)', price: 64.99, description: 'Premium exterior wall paint with 12-year dirt-resistance guarantee. UV protection, anti-algae formula, and self-cleaning properties for lasting facade beauty.', image_url: 'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=400&q=80', sort_order: 1 },
+      { category: catMap['Paints & Finishes'], name: 'Hempel Wood Varnish Gloss (1L)', price: 28.99, description: 'High-quality polyurethane wood varnish in gloss finish. Crystal-clear formula enhances natural wood grain. Scratch-resistant, suitable for interior furniture and doors.', image_url: 'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=400&q=80', sort_order: 2 },
+      { category: catMap['Paints & Finishes'], name: 'Epoxy Floor Coating Kit (10L)', price: 129.99, description: 'Industrial-strength two-part epoxy floor coating for garages, workshops, and commercial areas. Self-leveling formula with anti-slip aggregate and decorative flakes.', image_url: 'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=400&q=80', sort_order: 3 },
+      { category: catMap['Paints & Finishes'], name: 'Spray Paint Assorted (12 Cans)', price: 59.99, description: 'Professional aerosol spray paint set with 12 popular colors. Quick-dry acrylic-enamel formula. Indoor/outdoor use on metal, wood, plastic, and masonry surfaces.', image_url: 'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=400&q=80', sort_order: 4 },
+
+      // ===== Electrical & Lighting (5) =====
+      { category: catMap['Electrical & Lighting'], name: 'Electrical Cable Kit (100m)', price: 139.99, description: 'Professional wiring bundle with 100m each of 1.5mm, 2.5mm, and 4mm single-core copper cables. PVC insulated, flame-retardant, suitable for residential and commercial installations.', image_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80', sort_order: 0 },
+      { category: catMap['Electrical & Lighting'], name: 'Schneider Distribution Board 18-Way', price: 219.99, description: 'Schneider Electric Acti9 18-way distribution board with 100A main switch, DIN rail, and transparent door. IP30 rated for indoor residential and commercial use.', image_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80', sort_order: 1 },
+      { category: catMap['Electrical & Lighting'], name: 'Philips LED Panel 60x60 (4-Pack)', price: 139.99, description: 'Energy-efficient 40W LED panel lights by Philips. 4000K neutral white, flicker-free driver, 4000 lumens output. Perfect for offices, shops, and suspended ceilings.', image_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80', sort_order: 2 },
+      { category: catMap['Electrical & Lighting'], name: 'Legrand Switches & Sockets Set (20pc)', price: 89.99, description: 'Legrand Valena Life series switches and sockets in elegant white. Set includes 10x single sockets (16A), 5x single switches, and 5x double switches with frames.', image_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80', sort_order: 3 },
+      { category: catMap['Electrical & Lighting'], name: 'Fluke 117 Digital Multimeter', price: 189.99, description: 'True-RMS digital multimeter designed for electricians. Non-contact voltage detection, AutoVolt, low impedance mode, and CAT III 600V / CAT IV 300V safety rated.', image_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80', sort_order: 4 },
+
+      // ===== Safety & Workwear (5) =====
+      { category: catMap['Safety & Workwear'], name: '3M Safety Glasses (3-Pack)', price: 29.99, description: 'Lightweight wraparound safety glasses with anti-scratch and anti-fog polycarbonate lenses. UV400 protection. ANSI Z87.1+ certified. Three lens tints: clear, tinted, and amber.', image_url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=80', sort_order: 0 },
+      { category: catMap['Safety & Workwear'], name: 'Caterpillar Steel Toe Boots', price: 129.99, description: 'Premium CAT steel-toe work boots with oil-resistant rubber outsole, electrical hazard protection, and padded collar. Nubuck leather upper, available sizes 39-46.', image_url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=80', sort_order: 1 },
+      { category: catMap['Safety & Workwear'], name: 'Heavy-Duty Work Gloves (6 Pairs)', price: 44.99, description: 'Multipurpose work gloves with reinforced palm, breathable back, and adjustable wrist closure. Cut-resistant level 3. Ideal for construction, handling, and assembly work.', image_url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=80', sort_order: 2 },
+      { category: catMap['Safety & Workwear'], name: 'MSA V-Gard Hard Hat', price: 34.99, description: 'Classic V-Gard hard hat with Fas-Trac III ratchet suspension for a customizable fit. ABS shell rated for Type I, Class E. Slots for earmuffs and face shields.', image_url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=80', sort_order: 3 },
+      { category: catMap['Safety & Workwear'], name: 'Hi-Vis Safety Vest (5-Pack)', price: 39.99, description: 'Class 2 high-visibility safety vests with reflective strips on front, back, and shoulders. Breathable mesh fabric, zippered front, and two large pockets. One size fits most.', image_url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=80', sort_order: 4 },
     ];
 
     await Product.insertMany(products);
-    console.log('Products created (' + products.length + ' items)');
+    console.log('Products created (' + products.length + ' items across 6 categories)');
   } else {
     console.log('Products already exist');
   }
 
-  console.log('Seed complete!');
+  console.log('\nSeed complete!');
+  console.log('================================');
+  console.log('3 Hero Slides');
+  console.log('6 Categories');
+  console.log('30 Products (5 per category)');
+  console.log('1 Features Section (4 cards)');
+  console.log('1 About Page (full content)');
+  console.log('1 Contact Info (with map)');
+  console.log('1 Site Settings (with social links)');
+  console.log('================================');
   process.exit(0);
 }
 

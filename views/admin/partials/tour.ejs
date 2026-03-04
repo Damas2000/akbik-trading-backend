@@ -1,0 +1,103 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.css"/>
+<script src="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.js.iife.js"></script>
+<style>
+  .driver-popover {
+    font-family: 'Inter', sans-serif !important;
+    border-radius: 16px !important;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25) !important;
+    max-width: 380px !important;
+  }
+  .driver-popover .driver-popover-title {
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    color: #1e293b !important;
+  }
+  .driver-popover .driver-popover-description {
+    font-size: 13px !important;
+    color: #64748b !important;
+    line-height: 1.6 !important;
+  }
+  .driver-popover .driver-popover-progress-text {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: #94a3b8 !important;
+  }
+  .driver-popover-prev-btn {
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    padding: 6px 16px !important;
+  }
+  .driver-popover-next-btn {
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    padding: 6px 16px !important;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+    text-shadow: none !important;
+  }
+  #tour-trigger {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(99,102,241,0.4);
+    transition: all 0.2s;
+    font-size: 0;
+  }
+  #tour-trigger:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 32px rgba(99,102,241,0.5);
+  }
+</style>
+
+<button id="tour-trigger" title="Page Guide">
+  <span class="material-symbols-outlined" style="font-size:24px">help</span>
+</button>
+
+<script>
+(function() {
+  var steps = <%- JSON.stringify(tourSteps || []) %>;
+  var pageKey = '<%= tourKey || "default" %>';
+  var storageKey = 'akbik_tour_' + pageKey;
+
+  if (!steps.length) return;
+
+  function startTour() {
+    var driverObj = window.driver.js.driver({
+      showProgress: true,
+      animate: true,
+      smoothScroll: true,
+      allowClose: true,
+      overlayColor: 'rgba(15, 23, 42, 0.6)',
+      stagePadding: 8,
+      stageRadius: 12,
+      popoverClass: 'driver-popover',
+      nextBtnText: 'Next',
+      prevBtnText: 'Back',
+      doneBtnText: 'Done!',
+      steps: steps,
+      onDestroyed: function() {
+        localStorage.setItem(storageKey, '1');
+      }
+    });
+    driverObj.drive();
+  }
+
+  document.getElementById('tour-trigger').addEventListener('click', startTour);
+
+  if (!localStorage.getItem(storageKey)) {
+    setTimeout(startTour, 600);
+  }
+})();
+</script>
